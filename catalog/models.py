@@ -7,7 +7,7 @@ class Category(models.Model):
 
     def __str__(self):
         # Строковое отображение объекта
-        return f'{self.category_name} {self.description_category}'
+        return f'{self.category_name}'
 
     class Meta:
         verbose_name = 'категория' # Настройка для наименования одного объекта
@@ -15,21 +15,22 @@ class Category(models.Model):
         ordering = ('category_name',) #настройка сортировки
 
 
-#class Product(models.Model):
-#    product_name = models.CharField(max_length=150, verbose_name='наименование')
-#    description_product = models.TextField(verbose_name='описание')
-#    #picture_product = models.ImageField(upload_to='blog/', null=True, blank=True, verbose_name='изображение')
-#    #category_name = models.ForeignKey(max_length=150, verbose_name='категория')
-#    price_product = models.IntegerField(verbose_name='цена за покупку')
-#    date_of_creation_product = models.DateTimeField(verbose_name='дата создания')
-#    last_modified_date_product = models.DateTimeField(verbose_name='дата последнего изменения')
+class Product(models.Model):
+    product_name = models.CharField(max_length=100, verbose_name='наименование')
+    description_product = models.TextField(verbose_name='описание')
+    picture_product = models.ImageField(upload_to='blog/', null=True, blank=True, verbose_name='изображение')
+    category_name = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категория')
+    price_product = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='цена за покупку')
+    date_of_creation_product = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+    last_modified_date_product = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
 
-#    def __str__(self):
-#        # Строковое отображение объекта
-#        return f'{self.product_name} {self.description_product} ' \
-#               f'{self.price_product} {self.date_of_creation_product} {self.last_modified_date_product}'
 
-#    class Meta:
-#        verbose_name = 'продукт' # Настройка для наименования одного объекта
-#        verbose_name_plural = 'продукты' # Настройка для наименования набора объектов
+
+    def __str__(self):
+        # Строковое отображение объекта
+        return f'{self.product_name} '
+
+    class Meta:
+        verbose_name = 'продукт' # Настройка для наименования одного объекта
+        verbose_name_plural = 'продукты' # Настройка для наименования набора объектов
 
