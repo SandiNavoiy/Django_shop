@@ -12,7 +12,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'категория' # Настройка для наименования одного объекта
         verbose_name_plural = 'категории' # Настройка для наименования набора объектов
-        ordering = ('category_name')
+        ordering = ('category_name',) #настройка сортировки
 
 
 #class Product(models.Model):

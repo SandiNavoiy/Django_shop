@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru-ru'  # настройка языка админки
 
 TIME_ZONE = 'UTC'
 
@@ -127,5 +127,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'   #набор полей которые отвечают за сохранение файлов вне модели
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
