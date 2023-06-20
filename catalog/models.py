@@ -4,6 +4,7 @@ from django.db import models
 class Category(models.Model):
     category_name = models.CharField(max_length=150, verbose_name='название')
     description_category = models.TextField(verbose_name='описание')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
 
     def __str__(self):
         # Строковое отображение объекта
