@@ -12,7 +12,7 @@ class Product(models.Model):
 
     def __str__(self):
         # Строковое отображение объекта
-        return f'{self.product_name} {self.description_product} {self.picture_product} ' \
+        return f'{self.product_name} {self.description_product} ' \
                f'{self.category_name} {self.price_product} {self.date_of_creation_product} {self.last_modified_date_product}'
 
     class Meta:
