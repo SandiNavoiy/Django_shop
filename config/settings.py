@@ -76,8 +76,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresqlpython manage.py makemigrations',
-        'NAME': 'db_django', # Название БД
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'proect', # Название БД
         'USER': 'postgres', # Пользователь для подключения
         'PASSWORD': '1', # Пароль для этого пользователя
         'HOST': '127.0.0.1', # Адрес, на котором развернут сервер БД
