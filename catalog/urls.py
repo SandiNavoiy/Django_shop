@@ -5,6 +5,7 @@ from django.urls import path
 from catalog.views import index, contacts
 
 urlpatterns = [
-    path('', index),
-    path('contacts', contacts)
+    path('', index),  # вывод главной страницы
+    path('contacts', contacts, name='contact')  # вывод страницы контактов
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Это добавляется один раз на проект

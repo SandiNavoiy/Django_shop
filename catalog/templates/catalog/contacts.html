@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  <style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
     html, body, .container-fluid, .row, .col-md-3 {
       height: 100%;
     }
@@ -13,108 +14,127 @@
     .title {
       margin-top: 50px;
     }
-  </style>
+
+    </style>
 </head>
 <body>
 
 <div class="container-fluid h-100">
-  <div class="row h-100">
-    <div class="col-md-3">
-      <h1 class="visually-hidden">Sidebars examples</h1>
-      <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark h-100" style="width: 280px;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <svg class="bi pe-none me-2" width="40" height="50"><use xlink:href="#bootstrap"></use></svg>
-          <span class="fs-4">Меню</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-              Главная
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-              Категории
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-              Заказы
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-              Контакты
-            </a>
-          </li>
-        </ul>
-        <hr>
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>пользователь</strong>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="#">Профиль</a></li>
-            <li><a class="dropdown-item" href="#">Выход</a></li>
-          </ul>
+    <div class="row h-100">
+        <div class="col-md-3">
+            <h1 class="visually-hidden">Sidebars examples</h1>
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark h-100" style="width: 280px;">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="50">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                    <span class="fs-4">Меню</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" aria-current="page">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#home"></use>
+                            </svg>
+                            Главная
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>
+                            Категории
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#table"></use>
+                            </svg>
+                            Заказы
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="#grid"></use>
+                            </svg>
+                            Контакты
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong>пользователь</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">Профиль</a></li>
+                        <li><a class="dropdown-item" href="#">Выход</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-9">
+        <div class="col-md-9">
 
-        <h1 class="text-center title">Контакты</h1>
+            <h1 class="text-center title">Контакты</h1>
 
 
-        <div class="row">
-          <div class="col-5">
-            <div class="card">
-              <form method="POST">
-                {% csrf_token %}
-                <div class="mb-3">
-                  <label for="name" class="form-control">Имя</label>
-                  <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-control">Имя</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                       aria-describedby="emailHelp">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Почта</label>
+                                <input type="email" class="form-control" placeholder="@" id="email" name="email"
+                                       aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">Введите адрес электронной почты</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Текстовое сообщение</label>
+                                <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+
+                    </div>
                 </div>
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="text-center title">Наши контакты</h3>
+                            <h5 class="text-center title">
+                                <p>Username: {{ user.username }}</p>
+                                <p>Email: {{ user.email }}</p>
+                            </h5>
 
-                <div class="mb-3">
-                  <label for="email" class="form-label">Почта</label>
-                  <input type="email" class="form-control" placeholder="@"id="email" name="email" aria-describedby="emailHelp">
-                  <div id="emailHelp" class="form-text">Введите адрес электронной почты</div>
+                        </div>
+
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                  <label for="message" class="form-label">Текстовое сообщение</label>
-                  <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Отправить</button>
-              </form>
 
             </div>
-          </div>
-          <div class="col-5">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="text-center title">Наши контакты</h3>
-                <h5 class="text-center title">Тут описание контактов</h5>
-
-              </div>
-
-            </div>
-          </div>
 
         </div>
-
-      </div>
     </div>
-  </div>
+</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
