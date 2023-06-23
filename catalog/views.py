@@ -5,10 +5,15 @@ from catalog.models import Product, Contact
 
 
 def index(request):
-    latest_products = Product.objects.order_by('-id')[:5]  #5 послнедних с конца
+    latest_products = Product.objects.order_by('-id')[:5]
+    products = Product.objects.all()[0:3]
+    context = {
+        'products': products
+    }
+    #5 послнедних с конца
     for product in latest_products:
         print(product.product_name)  # Вывод товаров в консоль
-    return render(request, 'catalog/index.html')
+    return render(request, 'catalog/index.html', context)
 
 
 def contacts(request):
@@ -27,7 +32,7 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-def product(request, pk):
+def products(request, pk=20):
     item = Product.objects.get(pk=pk)
 
     context = {
@@ -40,8 +45,7 @@ def product(request, pk):
         'update_date': item.update_date,
 
     }
-
-    return render(request, 'catalog/product.html', context=context)
+    return render(request, 'catalog/products.html', context=context)
 
 
 def categorii(request):
