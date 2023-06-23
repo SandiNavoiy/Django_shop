@@ -42,3 +42,8 @@ def product(request, pk):
     }
 
     return render(request, 'catalog/product.html', context=context)
+
+
+def categorii(request):
+
+    return render(request, 'catalog/categorii.html')
