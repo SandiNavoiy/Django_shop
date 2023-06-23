@@ -25,3 +25,20 @@ def contacts(request):
         print(f"Текст сообщения: {request.POST.get('message')}")
 
     return render(request, 'catalog/contacts.html', context)
+
+
+def product(request, pk):
+    item = Product.objects.get(pk=pk)
+
+    context = {
+        'name': item.name,
+        'description': item.description,
+        'image_preview': item.image_preview,
+        'category': item.category,
+        'price': item.price,
+        'creation_date': item.creation_date,
+        'update_date': item.update_date,
+
+    }
+
+    return render(request, 'catalog/product.html', context=context)
