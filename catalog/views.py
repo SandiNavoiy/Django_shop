@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
-from catalog.models import Product, Contact
+from catalog.models import Product, Contact, Category
 
 
 def index(request):
@@ -43,5 +43,10 @@ def products(request, pk):
 
 
 def categorii(request):
+    сategor = Category.objects.all()
 
-    return render(request, 'catalog/categorii.html')
+    context = {
+        'сategory': сategor
+    }
+
+    return render(request, 'catalog/categorii.html', context)
