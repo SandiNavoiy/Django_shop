@@ -6,7 +6,7 @@ from catalog.models import Product, Contact
 
 def index(request):
     latest_products = Product.objects.order_by('-id')[:5]
-    products = Product.objects.all()[0:3]
+    products = Product.objects.all()
     context = {
         'products': products
     }
