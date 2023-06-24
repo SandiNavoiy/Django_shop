@@ -8,6 +8,6 @@ urlpatterns = [
     path('', index),  # вывод главной страницы
     path('contacts', contacts, name='contact'),
     path('categorii', categorii, name='categorii'),
-    path('products', products, name='products')# вывод страницы контактов
+    path('products/<int:pk>/', products, name='product')# вывод страницы контактов
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Это добавляется один раз на проект

@@ -12,14 +12,14 @@
                                                src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."/></div>
                     <div class="col-md-6">
 
-                        <h1 class="display-5 fw-bolder">{{ product_name }}</h1>
+                        <h1 class="display-5 fw-bolder">Название автомобиля:{{ item.product_name }}</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">${{ price_product }}</span>
-                            <span> | $ Three Hundred Bucks</span>
+                            <span class="text">Цена: {{ item.price_product }}</span>
+
                         </div>
                         <p class="lead"> {{ description_product }} </p>
-                        <p class="lead">Дата создания: {{ date_of_creation_product }}</p>
-                        <p class="lead">Дата обновления: {{ last_modified_date_product }}</p>
+                        <p class="lead">Дата создания карточки: {{ item.date_of_creation_product }}</p>
+                        <p class="lead">Дата обновления карточки: {{ item.last_modified_date_product }}</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
                                    style="max-width: 3rem"/>
