@@ -49,4 +49,5 @@ def categorii(request):
         'сategory': сategor
     }
 
+
     return render(request, 'catalog/categorii.html', context)
