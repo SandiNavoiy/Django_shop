@@ -3,8 +3,7 @@ from django.core.paginator import Paginator
 
 from django.shortcuts import render, redirect
 
-
-
+from catalog.forms import ProductForm
 from catalog.models import Product, Contact, Category
 
 
@@ -58,5 +57,17 @@ def categorii(request):
 
 
     return render(request, 'catalog/categorii.html', context)
+
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/#')
+    else:
+        form = ProductForm()
+
+    return render(request, 'catalog/create_product.html', {'form': form})
 
 

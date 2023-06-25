@@ -5,10 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
+<form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Создать продукт</button>
+  <button type="submit">Создать</button>
 </form>
 </body>
 </html>
