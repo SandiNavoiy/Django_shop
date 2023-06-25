@@ -130,4 +130,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'   #набор полей которые отвечают за сохранение файлов вне модели
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#hgjhghjghggjhg
