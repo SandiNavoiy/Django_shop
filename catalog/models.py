@@ -7,6 +7,7 @@ from django.shortcuts import render
 class Category(models.Model):
     category_name = models.CharField(max_length=150, verbose_name='название')
     description_category = models.TextField(verbose_name='описание')
+    picture_category = models.ImageField(upload_to='blog/', null=True, blank=True, verbose_name='изображение')
 
     def __str__(self):
         # Строковое отображение объекта
