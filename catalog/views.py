@@ -1,5 +1,9 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.core.paginator import Paginator
+
+from django.shortcuts import render, redirect
+
+
 
 from catalog.models import Product, Contact, Category
 
@@ -7,8 +11,11 @@ from catalog.models import Product, Contact, Category
 def index(request):
     latest_products = Product.objects.order_by('-id')[:5]
     products = Product.objects.all()
+    paginator = Paginator(products, 6)
+    page_number = request.GET.get('page')
+    page_products = paginator.get_page(page_number)
     context = {
-        'products': products
+        'products': page_products
     }
     #5 послнедних с конца
     for product in latest_products:
@@ -51,3 +58,5 @@ def categorii(request):
 
 
     return render(request, 'catalog/categorii.html', context)
+
+
