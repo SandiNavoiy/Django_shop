@@ -1,0 +1,40 @@
+<! —страница категорий —>
+{% extends 'catalog/base.html' %}
+{% load media_tags %}
+
+
+
+{% block content %}
+    <div class="col-md-9">
+        <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+            <h1 class="text-center title">Каталог категорий</h1>
+
+
+            <div class="row">
+                {% for сateg in сategory %}
+                    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col img">
+                                    <img src="{{ сateg.picture_category.url }}"
+                                         class="img-fluid rounded-start" alt="...">
+
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ сateg.category_name }}</h5>
+                                        <p class="card-text">{{ сateg.description_category }} </p>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+{% endblock %}

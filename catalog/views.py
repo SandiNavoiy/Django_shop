@@ -1,14 +1,25 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.core.paginator import Paginator
 
-from catalog.models import Product, Contact
+from django.shortcuts import render, redirect
+
+from catalog.forms import ProductForm
+from catalog.models import Product, Contact, Category
 
 
 def index(request):
-    latest_products = Product.objects.order_by('-id')[:5]  #5 послнедних с конца
+    latest_products = Product.objects.order_by('-id')[:5]
+    products = Product.objects.all()
+    paginator = Paginator(products, 6)
+    page_number = request.GET.get('page')
+    page_products = paginator.get_page(page_number)
+    context = {
+        'products': page_products
+    }
+    #5 послнедних с конца
     for product in latest_products:
         print(product.product_name)  # Вывод товаров в консоль
-    return render(request, 'catalog/index.html')
+    return render(request, 'catalog/index.html', context)
 
 
 def contacts(request):
@@ -25,3 +36,38 @@ def contacts(request):
         print(f"Текст сообщения: {request.POST.get('message')}")
 
     return render(request, 'catalog/contacts.html', context)
+
+
+def products(request, pk):
+    item = Product.objects.get(pk=pk)
+
+    context = {
+        'item': item
+
+    }
+    return render(request, 'catalog/products.html', context=context)
+
+
+def categorii(request):
+    сategor = Category.objects.all()
+
+    context = {
+        'сategory': сategor
+    }
+
+
+    return render(request, 'catalog/categorii.html', context)
+
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/#')
+    else:
+        form = ProductForm()
+
+    return render(request, 'catalog/create_product.html', {'form': form})
+
+
