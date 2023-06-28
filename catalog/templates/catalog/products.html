@@ -1,6 +1,7 @@
 {% extends 'catalog/base.html' %}
 
 {% load static %}
+{% load media_tags %}
 
 
 {% block content %}
@@ -10,7 +11,7 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                                               <img src="{{ item.picture_product.url }}" alt="..."/></div>
+                                               <img src="{% mediapath item.picture_product %}" alt="..."/></div>
                     <div class="col-md-6">
 
                         <h1 class="display-5 fw-bolder">Название автомобиля:{{ item.product_name }}</h1>
