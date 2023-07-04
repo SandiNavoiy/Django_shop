@@ -2,11 +2,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from catalog.views import index, contacts, CategoriiListView, ProductsDetailView, ProductsCreateView
+from catalog.views import  CategoriiListView, ProductsDetailView, ProductsCreateView, UserDetailView, \
+    IndexListView
 
 urlpatterns = [
-    path('', index),  # вывод главной страницы
-    path('contacts', contacts, name='contact'),
+    path('', IndexListView.as_view(), name='index'),  # вывод главной страницы
+    path('contacts/', UserDetailView.as_view(), name='contact'),
     path('categorii', CategoriiListView.as_view(), name='categorii'),
     path('products/<int:pk>/', ProductsDetailView.as_view(), name='product'),
     path('create', ProductsCreateView.as_view(), name='create_product')# вывод страницы контактов
