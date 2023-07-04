@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
 
 from catalog.forms import ProductForm
 from catalog.models import Product, Contact, Category
@@ -38,25 +39,31 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', context)
 
 
-def products(request, pk):
-    item = Product.objects.get(pk=pk)
+#def products(request, pk):
+#    item = Product.objects.get(pk=pk)
 
-    context = {
-        'item': item
+#    context = {
+#        'item': item
 
-    }
-    return render(request, 'catalog/products.html', context=context)
+#    }
+#    return render(request, 'catalog/products.html', context=context)
+class ProductsDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/products.html'
+    context_object_name = 'item'
+    pk_url_kwarg = 'pk'
 
+#def categorii(request):
+#    сategor = Category.objects.all()
+#    context = {
+#        'сategory': сategor
+#    }
+#    return render(request, 'catalog/categorii.html', context)
 
-def categorii(request):
-    сategor = Category.objects.all()
-
-    context = {
-        'сategory': сategor
-    }
-
-
-    return render(request, 'catalog/categorii.html', context)
+class CategoriiListView(ListView):
+    model = Category
+    template_name = 'catalog/categorii.html'
+    context_object_name = 'сategory'
 
 
 def create_product(request):
