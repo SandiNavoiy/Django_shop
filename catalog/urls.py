@@ -2,9 +2,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
+from catalog.apps import CatalogConfig
 from catalog.views import  CategoriiListView, ProductsDetailView, ProductsCreateView, UserDetailView, \
     IndexListView
-
+app_name = CatalogConfig.name
 urlpatterns = [
     path('', IndexListView.as_view(), name='index'),  # вывод главной страницы
     path('contacts/', UserDetailView.as_view(), name='contact'),
