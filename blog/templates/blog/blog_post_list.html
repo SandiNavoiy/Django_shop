@@ -5,9 +5,11 @@
     <div class="col-md-9">
     <div class="d-flex flex-column h-100 justify-content-center align-items-center">
         <h1 class="text-center title">Записи в блогах</h1>
+        <a class="btn btn-success " href=>создать запись</a>
 
 
         <div class="row">
+
             {% for object in object_list %}
                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="card mb-3" style="max-width: 540px;">
@@ -23,7 +25,8 @@
                                     <p class="card-text">Текст записи:<br>{{ object.content }} </p>
                                     <p class="card-text">Создано:{{ object.created_at }} </p>
                                     <p class="card-text">Количество просмотров:{{ object.views_count }} </p>
-                                    <a class="detail" type="submit" href={% url 'blog:detail' object.slug %}><p>Подробнее...</p></a>
+                                    <a class="detail" type="submit" href={% url 'blog:detail' object.slug %}><p>
+                                        Подробнее...</p></a>
 
 
                                 </div>
