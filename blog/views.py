@@ -6,6 +6,7 @@ from django.views.generic import ListView, DeleteView, UpdateView, DetailView, C
 
 from blog.forms import BlogPostForm
 from blog.models import BlogPost
+from config import settings
 
 
 # Create your views here.
@@ -36,8 +37,8 @@ class BlogDetailView(DetailView):
         self.object = super().get_object(queryset)
         self.object.views_count += 1
         self.object.save()
-        if self.object.views_count == 100:
-            send_mail('Просмотры', 'Количество просмотров 100')
+        if self.object.views_count == 10:
+            send_mail('Просмотры', 'Количество просмотров 100', settings.EMAIL_HOST_USER, ['kochetov11@yandex.ru'])
         return self.object
 
 class BlogUpdateView(UpdateView):
