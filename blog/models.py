@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify
+
 
 # Create your models here.
 class BlogPost(models.Model):
@@ -9,6 +11,8 @@ class BlogPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     is_published = models.BooleanField(default=False, verbose_name='статус публикации')
     views_count = models.IntegerField(default=0, verbose_name='счетчик просмотров')
+
+
 
     def __str__(self):
         return self.title
