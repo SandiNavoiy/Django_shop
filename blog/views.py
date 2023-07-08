@@ -14,7 +14,6 @@ class BlogListView(ListView):
     model = BlogPost
     template_name = 'blog/blog_post_list.html'
 
-
     paginate_by = 6
 
     def get_queryset(self):
@@ -41,13 +40,13 @@ class BlogDetailView(DetailView):
             send_mail('Просмотры', 'Количество просмотров 100', settings.EMAIL_HOST_USER, ['kochetov11@yandex.ru'])
         return self.object
 
+
 class BlogUpdateView(UpdateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'blog/blog_post_form.html'
 
     success_url = 'http://127.0.0.1:8000/blog/list/'
-
 
 
 class BlogDeleteView(DeleteView):

@@ -14,10 +14,9 @@
                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="card mb-3" style="max-width: 540px;">
                         <div class="row g-0">
-                            <div class="col img">
-                                <img src="{{ object.preview_image }}"
-                                     class="img-fluid rounded-start" alt="...">
-
+                            <div class="col">
+                                <img class="entry-preview{max-width: 20px; max-height: 20px;}"
+                                     src="{{ object.preview_image.url }}" alt="...">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">

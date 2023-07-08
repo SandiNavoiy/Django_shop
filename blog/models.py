@@ -1,9 +1,10 @@
 from audioop import reverse
 
+from PIL import Image
 from django.db import models
 
-
 NULLABLE = {'null': True, 'blank': True}
+
 
 # Create your models here.
 class BlogPost(models.Model):
@@ -15,13 +16,19 @@ class BlogPost(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='статус публикации')
     views_count = models.IntegerField(default=0, verbose_name='счетчик просмотров')
 
-
-
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.preview_image:
+            img = Image.open(self.preview_image.path)
+            img.thumbnail((200, 200))  # Указываете желаемые размеры
+            img.save(self.preview_image.path)
+
     def get_absolute_url(self):
         return reverse('blog_post_list', kwargs={'slug': self.slug})
+
     class Meta:
         verbose_name = 'запись'  # Настройка для наименования одного объекта
         verbose_name_plural = 'записи'  # Настройка для наименования набора объектов
