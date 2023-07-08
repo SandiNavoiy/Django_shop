@@ -5,7 +5,7 @@
     <div class="col-md-9">
     <div class="d-flex flex-column h-100 justify-content-center align-items-center">
         <h1 class="text-center title">Записи в блогах</h1>
-        <a class="btn btn-success " href={% url 'blog:create'%}>создать запись</a>
+        <a class="btn btn-success " href={% url 'blog:create' %}>создать запись</a>
 
 
         <div class="row">
@@ -38,12 +38,14 @@
             {% endfor %}
 
             <div class="pagination">
-                {% if products.has_previous %}
-                    <a class="page-link" href="?page={{ products.previous_page_number }}">Предыдущая</a>
-                {% endif %}
-                <span class="page-current">{{ products.number }}</span>
-                {% if products.has_next %}
-                    <a class="page-link" href="?page={{ products.next_page_number }}">Следующая</a>
+                {% if is_paginated %}
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                    {% endif %}
+                    <span class="page-current">{{ page_obj.number }}</span>
+                    {% if page_obj.has_next %}
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

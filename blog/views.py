@@ -12,6 +12,8 @@ from blog.models import BlogPost
 class BlogListView(ListView):
     model = BlogPost
     template_name = 'blog/blog_post_list.html'
+
+
     paginate_by = 6
 
     def get_queryset(self):
