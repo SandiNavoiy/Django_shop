@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from django.views.generic import ListView, DeleteView, UpdateView, DetailView, CreateView
 
+from blog.forms import BlogPostForm
 from blog.models import BlogPost
 
 
@@ -20,19 +21,10 @@ class BlogListView(ListView):
 
 class BlogCreateView(CreateView):
     model = BlogPost
+    form_class = BlogPostForm
     template_name = 'blog/blog_post_create.html'
+    success_url = 'http://127.0.0.1:8000/'  # редирект
 
-    def get(self, request):
-        # Отобразить форму создания блога
-        return render(request, 'blog/blog_post_create.html')
-
-    def post(self, request):
-        # Обработать отправку формы создания блога
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-
-        blog = self.model.objects.create(title=title, content=content)
-        return redirect('blog_detail', slug=blog.slug)
 
 
 class BlogDetailView(DetailView):
