@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+            <h1 class="text-center title">Записи в блогах</h1>
+            <div class="col">
+                <img class="entry-preview" src="{{ object.preview_image.url }}"
+                     alt="...">
+            </div>
+
+
+            <h4 class="title">Заголовок записи <br>{{ object.title }}</h4>
+            <h4 class="title mb-4">slug: {{ object.slug }}</h4>
+
+
+            <div class="col">
+                <p>{{ object.content }}</p>
+            </div>
+            <p class="mb-1">Дата создания: {{ object.created_at }}</p>
+            <p class="mb-1">Количество просмотров: {{ object.views_count }}</p>
+            <a class="btn btn-primary blog m-2" href={% url 'blog:delete' object.slug %}>Удалить</a>
+            <a class="btn btn-primary blog m-2" href={% url 'blog:update' object.slug %}>Изменить</a>
+
+        </div>
+
+    </div>
+{% endblock %}
