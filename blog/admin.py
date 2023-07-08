@@ -13,3 +13,4 @@ class BlogPostAdmin(admin.ModelAdmin):
     #list_filter = ('title', 'is_published')
     # описание доступных полей поиска в админке
     #search_fields = ('title')
+    prepopulated_fields = {'slug': ('title',)}

@@ -1,12 +1,14 @@
+from audioop import reverse
+
 from django.db import models
-from django.utils.text import slugify
+
 
 NULLABLE = {'null': True, 'blank': True}
 
 # Create your models here.
 class BlogPost(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
-    slug = models.CharField(max_length=255, unique=True, verbose_name='слуг', **NULLABLE)
+    slug = models.SlugField(null=False, unique=True)
     content = models.TextField(verbose_name='текст')
     preview_image = models.ImageField(upload_to='blog_images/', verbose_name='медиа', **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
@@ -17,6 +19,9 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog_post_list', kwargs={'slug': self.slug})
     class Meta:
         verbose_name = 'запись'  # Настройка для наименования одного объекта
         verbose_name_plural = 'записи'  # Настройка для наименования набора объектов
