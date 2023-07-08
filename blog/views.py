@@ -70,8 +70,5 @@ class BlogUpdateView(UpdateView):
 
 class BlogDeleteView(DeleteView):
     model = BlogPost
-
-    def post(self, request, slug):
-        blog = get_object_or_404(self.model, slug=slug)
-        blog.delete()
-        return redirect('blog/blog_post_list')
+    template_name = 'blog/blog_post_delete.html'
+    success_url = reverse_lazy('blog:blog_post_list')
