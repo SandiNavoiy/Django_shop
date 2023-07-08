@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from django.views.generic import ListView, DeleteView, UpdateView, DetailView, CreateView
 
@@ -23,14 +23,12 @@ class BlogCreateView(CreateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'blog/blog_post_create.html'
-    success_url = 'http://127.0.0.1:8000/'  # редирект
-
+    success_url = 'http://127.0.0.1:8000/blog/list/'  # редирект
 
 
 class BlogDetailView(DetailView):
     model = BlogPost
     template_name = 'blog/blog_post_detail.html'
-
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -42,23 +40,11 @@ class BlogDetailView(DetailView):
 
 class BlogUpdateView(UpdateView):
     model = BlogPost
-    template_name = 'blog/blog_post_detail.html'
+    form_class = BlogPostForm
+    template_name = 'blog/blog_post_form.html'
 
-    def get(self, request, slug):
-        blog = get_object_or_404(self.model, slug=slug)
-        return render(request, 'blog/blog_post_update.html', {'blog': blog})
+    success_url = 'http://127.0.0.1:8000/blog/list/'
 
-    def post(self, request, slug):
-        blog = get_object_or_404(self.model, slug=slug)
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        # Остальные поля...
-
-        blog.title = title
-        blog.content = content
-        # Обновить остальные поля...
-        blog.save()
-        return redirect('blog/blog_post_detail', slug=blog.slug)
 
 
 class BlogDeleteView(DeleteView):

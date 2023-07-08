@@ -15,6 +15,7 @@
         <p class="mb-1">Дата создания: {{ object.created_at }}</p>
         <p class="mb-1">Количество просмотров: {{ object.views_count }}</p>
             <a class="btn btn-primary blog m-2" href={% url 'blog:delete' object.slug %}>Удалить</a>
+            <a class="btn btn-primary blog m-2" href={% url 'blog:update' object.slug %}>Изменить</a>
 
         </div>
 
