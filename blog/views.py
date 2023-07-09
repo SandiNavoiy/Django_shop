@@ -51,7 +51,7 @@ class BlogUpdateView(UpdateView):
         new_slug = slugify(self.object.title)
         return reverse('blog:detail', args=[new_slug])
 
-    # success_url = 'http://127.0.0.1:8000/blog/list/'
+
 
 
 class BlogDeleteView(DeleteView):
