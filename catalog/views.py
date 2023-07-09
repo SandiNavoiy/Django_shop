@@ -97,4 +97,4 @@ class ProductsCreateView(CreateView):
     form_class = ProductForm
     template_name = 'catalog/create_product.html'
 
-    success_url = 'http://127.0.0.1:8000/'  # редирект
+    success_url = reverse_lazy('catalog:index')  # редирект
