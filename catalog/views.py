@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 
-from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -9,17 +7,7 @@ from catalog.forms import ProductForm
 from catalog.models import Product, Contact, Category
 
 
-#def index(request):
-#    products = Product.objects.all()
-#    paginator = Paginator(products, 6)
-#    page_number = request.GET.get('page')
-#    page_products = paginator.get_page(page_number)
-#    context = {
-#        'products': page_products
-#    }
-#    # 5 послнедних с конца
 
-    #return render(request, 'catalog/index.html', context)
 class IndexListView(ListView):
     model = Product
     template_name = 'catalog/index.html'
@@ -28,20 +16,6 @@ class IndexListView(ListView):
 
 
 
-#def contacts(request):
-#    user = User.objects.get(id=1)  # Здесь 1 - ID пользователя, которого вы хотите отобразить, для примера админа
-#    # Словарь который мы передаем в шаблон, с ключем user
-    # В шаблоне используем шаблонные переменные {{ user.username }}и {{ user.email }}для представления данных пользователя
-    # хотя странно почему именно user.username а не context.username?
-#    context = {
-#        'user': user,
-#    }
-#    if request.method == 'POST':
-#        print(f"Имя: {request.POST.get('name')}")
-#        print(f"Электронная почта: {request.POST.get('email')}")
-#        print(f"Текст сообщения: {request.POST.get('message')}")
-
-#    return render(request, 'catalog/contacts.html', context)
 class UserDetailView(DetailView):
     model = User
     template_name = 'catalog/contacts.html'
@@ -52,14 +26,7 @@ class UserDetailView(DetailView):
         # Возвращаем первого пользователя
         return User.objects.first()
 
-# def products(request, pk):
-#    item = Product.objects.get(pk=pk)
 
-#    context = {
-#        'item': item
-
-#    }
-#    return render(request, 'catalog/products.html', context=context)
 class ProductsDetailView(DetailView):
     model = Product
     template_name = 'catalog/products.html'
@@ -67,29 +34,11 @@ class ProductsDetailView(DetailView):
     pk_url_kwarg = 'pk'
 
 
-# def categorii(request):
-#    сategor = Category.objects.all()
-#    context = {
-#        'сategory': сategor
-#    }
-#    return render(request, 'catalog/categorii.html', context)
-
 class CategoriiListView(ListView):
     model = Category
     template_name = 'catalog/categorii.html'
     context_object_name = 'сategory'
 
-
-# def create_product(request):
-#    if request.method == 'POST':
-#        form = ProductForm(request.POST, request.FILES)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('/#')
-#    else:
-#        form = ProductForm()
-
-#    return render(request, 'catalog/create_product.html', {'form': form})
 
 
 class ProductsCreateView(CreateView):
