@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.utils.text import slugify
 
 from django.views.generic import ListView, DeleteView, UpdateView, DetailView, CreateView
 
@@ -25,7 +26,7 @@ class BlogCreateView(CreateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'blog/blog_post_create.html'
-    success_url = 'http://127.0.0.1:8000/blog/list/'  # редирект
+    success_url = reverse_lazy('blog:blog_post_list')  # редирект
 
 
 class BlogDetailView(DetailView):
@@ -46,7 +47,11 @@ class BlogUpdateView(UpdateView):
     form_class = BlogPostForm
     template_name = 'blog/blog_post_form.html'
 
-    success_url = 'http://127.0.0.1:8000/blog/list/'
+    def get_success_url(self) -> str:
+        new_slug = slugify(self.object.title)
+        return reverse('blog:detail', args=[new_slug])
+
+    # success_url = 'http://127.0.0.1:8000/blog/list/'
 
 
 class BlogDeleteView(DeleteView):
