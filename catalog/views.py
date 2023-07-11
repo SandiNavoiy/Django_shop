@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from catalog.forms import ProductForm
-from catalog.models import Product, Contact, Category
+from catalog.models import Product, Category
 
 
 #def index(request):
