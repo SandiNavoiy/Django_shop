@@ -3,6 +3,7 @@ from django.db import models
 
 
 # Create your models here.
+NULLABLE = {'null': True, 'blank': True}
 class Category(models.Model):
     category_name = models.CharField(max_length=150, verbose_name='название')
     description_category = models.TextField(verbose_name='описание')
