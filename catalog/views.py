@@ -27,6 +27,7 @@ class IndexListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
+        #get_queryset - запрос на выборку данных из БД
         queryset = super().get_queryset()
         # фильтр всех активные версии (active_versions), находим
         # только те версии, содержащие текущий продукт (product).
