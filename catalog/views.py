@@ -133,5 +133,5 @@ class ProductsUpdateView(UpdateView):
     template_name = 'catalog/update_form.html'
 
     def get_success_url(self) -> str:
-        new_slug = slugify(self.object.pk)
-        return reverse('catalog:product', args=[new_slug])
+        new_url = slugify(self.object.pk)
+        return reverse('catalog:product', args=[new_url])
