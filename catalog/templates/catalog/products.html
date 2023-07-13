@@ -23,6 +23,7 @@
                         <p class="lead">Дата создания карточки: {{ item.date_of_creation_product }}</p>
                         <p class="lead">Дата обновления карточки: {{ item.last_modified_date_product }}</p>
                         <a class="btn btn-primary blog m-2" href={% url 'catalog:delete_product' object.pk %}>Удалить</a>
+                        <a class="btn btn-primary blog m-2" href={% url 'catalog:update_product' object.pk %}>Редактировать</a>
 
 
                     </div>

@@ -4,7 +4,7 @@ from django.urls import path
 
 from catalog.apps import CatalogConfig
 from catalog.views import CategoriiListView, ProductsDetailView, ProductsCreateView, UserDetailView, \
-    IndexListView, CategoryCreateView, ProductsDeleteView
+    IndexListView, CategoryCreateView, ProductsDeleteView, ProductsUpdateView
 
 app_name = CatalogConfig.name
 urlpatterns = [
@@ -15,5 +15,6 @@ urlpatterns = [
                   path('create', ProductsCreateView.as_view(), name='create_product'),
                   path('create_cat', CategoryCreateView.as_view(), name='create_cat'),
                   path('delete_product/<int:pk>/', ProductsDeleteView.as_view(), name='delete_product'),
+                  path('update_product/<int:pk>/', ProductsUpdateView.as_view(), name='update_product'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Это добавляется один раз на проект

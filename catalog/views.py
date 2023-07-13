@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.urls import reverse_lazy, reverse
+from django.utils.text import slugify
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category, Version
@@ -126,3 +127,11 @@ class ProductsDeleteView(DeleteView):
     template_name = 'catalog/delete_form.html'
     success_url = reverse_lazy('catalog:index')
 
+class ProductsUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/update_form.html'
+
+    def get_success_url(self) -> str:
+        new_slug = slugify(self.object.pk)
+        return reverse('catalog:product', args=[new_slug])

@@ -8,7 +8,7 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button class="btn btn-danger" type="submit">Изменить</button>
-                <a class="btn btn-secondary blog m-2" href={% url 'blog:detail' object.slug %}>отмена</a>
+                <a class="btn btn-secondary blog m-2" href={% url 'catalog:product' object.pk %}>отмена</a>
 
             </form>
 
