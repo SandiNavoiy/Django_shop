@@ -15,6 +15,12 @@ class BlogPostForm(forms.ModelForm):
         if cleaned_data in ("казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар"):
             raise forms.ValidationError('Запрещенное слово')
         return cleaned_data
+    def clean_content(self):
+        """метод валидации по запрерщенным словам"""
+        cleaned_data = self.cleaned_data.get('content')
+        if cleaned_data in ("казино", "криптовалюта", "крипта", "биржа", "дешево", "бесплатно", "обман", "полиция", "радар"):
+            raise forms.ValidationError('Запрещенное слово')
+        return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)
