@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'catalog',
     'blog',
     'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,7 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'noreply@oscarbot.ru'
 EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
 EMAIL_USE_SSL = True
+
+
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
