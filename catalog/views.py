@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 
 from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category, Version
@@ -120,3 +120,9 @@ class CategoryCreateView(CreateView):
     template_name = 'catalog/create_categor.html'
 
     success_url = reverse_lazy('catalog:categorii')  # редирект
+
+class ProductsDeleteView(DeleteView):
+    model = Product
+    template_name = 'catalog/delete_form.html'
+    success_url = reverse_lazy('catalog:index')
+
