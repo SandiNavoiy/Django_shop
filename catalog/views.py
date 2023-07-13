@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category, Version
 
 
@@ -112,3 +112,11 @@ class ProductsCreateView(CreateView):
     template_name = 'catalog/create_product.html'
 
     success_url = reverse_lazy('catalog:index')  # редирект
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'catalog/create_categor.html'
+
+    success_url = reverse_lazy('catalog:categorii')  # редирект
