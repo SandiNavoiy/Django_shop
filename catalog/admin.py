@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from catalog.models import Category, Product
+from catalog.models import Category, Product, Version
 
 
 # Register your models here.
@@ -20,3 +20,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category_name',)
     # описание доступных полей поиска в админке
     search_fields = ('product_name', 'description_product',)
+    
+@admin.register(Version)
+class VersionAdmin(admin.ModelAdmin):
+    list_display = ('product_name', 'number_of_version', 'name_of_version', 'is_activ')

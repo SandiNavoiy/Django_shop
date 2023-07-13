@@ -14,3 +14,5 @@ class BlogPostAdmin(admin.ModelAdmin):
     # описание доступных полей поиска в админке
     # search_fields = ('title')
     prepopulated_fields = {'slug': ('title',)}
+
+

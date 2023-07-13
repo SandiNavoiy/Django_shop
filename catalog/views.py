@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
 from catalog.forms import ProductForm
-from catalog.models import Product, Category
+from catalog.models import Product, Category, Version
 
 
 #def index(request):
@@ -25,6 +25,19 @@ class IndexListView(ListView):
     template_name = 'catalog/index.html'
     context_object_name = 'products'
     paginate_by = 6
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # фильтр всех активные версии (active_versions), находим
+        # только те версии, содержащие текущий продукт (product).
+        # поле product_name для замены версии с продуктом
+        #first(), чтобы получить первую найденную активную версию.
+        active_versions = Version.objects.filter(is_activ=True)
+        for product in queryset:
+            product.active_version = active_versions.filter(product_name=product).first()
+        return queryset
+
+
 
 
 
