@@ -1,13 +1,20 @@
 
 from django import forms
-
+from django.forms import formset_factory
 
 from .models import Product, Category, Version
+class VersionForm(forms.ModelForm):
 
+    class Meta:
+        """подкласс описания """
+        model = Version  # модель
+        fields = '__all__'  # поля
 
-
+ProductVersionFormSet = formset_factory(VersionForm, extra=1)
+VersionFormSet = formset_factory(VersionForm, extra=1)
 
 class ProductForm(forms.ModelForm):
+
 
     class Meta:
         """подкласс описания """

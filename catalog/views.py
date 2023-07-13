@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 
 from catalog.forms import ProductForm, CategoryForm
 from catalog.models import Product, Category, Version
@@ -135,3 +135,4 @@ class ProductsUpdateView(UpdateView):
     def get_success_url(self) -> str:
         new_url = slugify(self.object.pk)
         return reverse('catalog:product', args=[new_url])
+
