@@ -23,6 +23,7 @@
                                     <h5 class="card-title">Заголовок записи:<br>{{ object.title }}</h5>
                                     <p class="card-text">Текст записи:<br>{{ object.content }} </p>
                                     <p class="card-text">Создано:{{ object.created_at }} </p>
+                                    <p class="card-text">Создано:{{ object.slug }} </p>
                                     <p class="card-text">Количество просмотров:{{ object.views_count }} </p>
                                     <a class="detail" type="submit" href={% url 'blog:detail' object.slug %}><p>
                                         Подробнее...</p></a>
