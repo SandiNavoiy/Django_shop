@@ -114,6 +114,30 @@ class ProductsCreateView(CreateView):
     template_name = 'catalog/create_product.html'
 
     success_url = reverse_lazy('catalog:index')  # редирект
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        ProductFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+
+        if self.request.method == 'POST':
+            context['formset'] = ProductFormset(self.request.POST)
+        else:
+            context['formset'] = ProductFormset()
+
+        return context
+
+    def form_valid(self, form):
+
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+
+        return super().form_valid(form)
+
+
 
 
 class CategoryCreateView(CreateView):
@@ -137,8 +161,21 @@ class ProductsUpdateView(UpdateView):
         new_url = slugify(self.object.pk)
         return reverse('catalog:product', args=[new_url])
     def get_context_data(self, **kwargs):
+        # обработка post и get запросов
         context_data = super().get_context_data()
-        SubjectFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-        context_data['formset'] = SubjectFormset
+        ProductFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = ProductFormset(instance=self.object)
+
         return context_data
+
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+        return super().form_valid(form)
 

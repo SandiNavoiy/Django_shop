@@ -13,9 +13,7 @@
                         {{ form|crispy }}
                         <button class="btn btn-danger" type="submit">Изменить</button>
                         <a class="btn btn-secondary blog m-2" href={% url 'catalog:product' object.pk %}>отмена</a>
-                        <div class='card-body'>
-                            <h1 class="text-center title">версии {{ object.title }}</h1>
-                        </div>
+
                 </div>
             </div>
 
@@ -29,6 +27,7 @@
                         </div>
                     </div>
                 {% endfor %}
+
             </div>
         </div>
 

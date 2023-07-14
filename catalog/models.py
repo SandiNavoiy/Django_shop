@@ -46,7 +46,7 @@ class Version(models.Model):
     product_name = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='название продукта')
     number_of_version = models.FloatField(default=1.0, verbose_name="номер версии")
     name_of_version = models.CharField(max_length=100, verbose_name="имя версии")
-    is_activ = models.BooleanField(default=True, verbose_name='статус актуальности')
+    is_activ = models.BooleanField(default=False, verbose_name='статус актуальности')
 
 
     def __str__(self):
