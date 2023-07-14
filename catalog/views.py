@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.forms import inlineformset_factory
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 
-from catalog.forms import ProductForm, CategoryForm
+from catalog.forms import ProductForm, CategoryForm, VersionForm
 from catalog.models import Product, Category, Version
 
 
@@ -135,4 +136,9 @@ class ProductsUpdateView(UpdateView):
     def get_success_url(self) -> str:
         new_url = slugify(self.object.pk)
         return reverse('catalog:product', args=[new_url])
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data()
+        SubjectFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+        context_data['formset'] = SubjectFormset
+        return context_data
 

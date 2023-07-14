@@ -10,8 +10,7 @@ class VersionForm(forms.ModelForm):
         model = Version  # модель
         fields = '__all__'  # поля
 
-ProductVersionFormSet = formset_factory(VersionForm, extra=1)
-VersionFormSet = formset_factory(VersionForm, extra=1)
+
 
 class ProductForm(forms.ModelForm):
 
