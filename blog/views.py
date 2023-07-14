@@ -1,13 +1,11 @@
-from django.core.mail import send_mail
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
+from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 
-from django.views.generic import ListView, DeleteView, UpdateView, DetailView, CreateView
-
-from blog.forms import BlogPostForm
-from blog.models import BlogPost
-from config import settings
+from catalog.forms import ProductForm, CategoryForm, VersionForm
+from catalog.models import Product, Category, Version
 
 
 # Create your views here.
