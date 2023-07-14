@@ -13,7 +13,8 @@
         html, body, .container-fluid, .row, .col-md-3 {
             height: 100%;
         }
-{% static 'bootstrap/css/bootstrap.min.css' %}
+
+        {% static 'bootstrap/css/bootstrap.min.css' %}
         .title {
             margin-top: 50px;
         }
@@ -55,17 +56,18 @@
                             <svg class="bi pe-none me-2" width="16" height="16">
                                 <use xlink:href="/create"></use>
                             </svg>
-                            Создать
+                            Создать Продукт
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
+                        <a href="/create_cat" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#table"></use>
+                                <use xlink:href="/create_cat"></use>
                             </svg>
-                            Заказы
+                            Создать категорию
                         </a>
                     </li>
+
                     <li>
                         <a href="/contacts" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16">
@@ -103,7 +105,7 @@
 
 
         {% endblock %}
-    {% include 'catalog/inc.html' %} {# подключение подшаблона #}
+        {% include 'catalog/inc.html' %} {# подключение подшаблона #}
 
     </div>
 </div>

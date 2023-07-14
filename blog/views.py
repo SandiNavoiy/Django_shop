@@ -4,6 +4,8 @@ from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 
+from blog.forms import BlogPostForm
+from blog.models import BlogPost
 from catalog.forms import ProductForm, CategoryForm, VersionForm
 from catalog.models import Product, Category, Version
 
