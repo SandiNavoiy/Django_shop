@@ -2,30 +2,35 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="col-md-6">
-        <div class="d-flex flex-column h-100 justify-content-center align-items-center">
-            <h1 class="text-center title">Изменение записи блога {{ object.title }}</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button class="btn btn-danger" type="submit">Изменить</button>
-                <a class="btn btn-secondary blog m-2" href={% url 'catalog:product' object.pk %}>отмена</a>
 
-                <div class='card-body'>
-                    <h1 class="text-center title">версии  {{ object.title }}</h1>
-
-                    {{ formset.management_form }}
-
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+                    <h1 class="text-center title">Изменение продукта {{ object.title }}</h1>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button class="btn btn-danger" type="submit">Изменить</button>
+                        <a class="btn btn-secondary blog m-2" href={% url 'catalog:product' object.pk %}>отмена</a>
+                        <div class='card-body'>
+                            <h1 class="text-center title">версии {{ object.title }}</h1>
+                        </div>
                 </div>
-                {{ formset.management_form }}
+            </div>
 
-            </form>
-
-
+            <div class="col-md-4">
+                <h1 class="text-center title">Изменение версии продкута</h1>
+                {% for form in formset.forms %}
+                    <div class="card input">
+                        <div class="col">
+                            {{ formset.management_form }}
+                            {{ form|crispy }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
-    </div>
-
-
-
+        </form>
 {% endblock %}
