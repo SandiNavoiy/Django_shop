@@ -17,7 +17,6 @@ from django.core.mail.backends import smtp
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = 'django-insecure-ku#cqm(mlw8i(58$@z1c#44wmfg4ow*woa5+u@3d275mu4ix3e
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog',
     'blog',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -73,21 +73,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'proect', # Название БД
-        'USER': 'postgres', # Пользователь для подключения
-        'PASSWORD': '1', # Пароль для этого пользователя
-        'HOST': '127.0.0.1', # Адрес, на котором развернут сервер БД
-        'PORT': 5432, # Порт, на котором работает сервер БД
+        'NAME': 'proect',  # Название БД
+        'USER': 'postgres',  # Пользователь для подключения
+        'PASSWORD': '1',  # Пароль для этого пользователя
+        'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
+        'PORT': 5432,  # Порт, на котором работает сервер БД
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -107,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -119,19 +116,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (BASE_DIR/'static',)   #подтягиваем статику
+STATICFILES_DIRS = (BASE_DIR / 'static',)  # подтягиваем статику
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field11bmjhjkk
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'   #набор полей которые отвечают за сохранение файлов вне модели
+MEDIA_URL = '/media/'  # набор полей которые отвечают за сохранение файлов вне модели
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -139,3 +135,7 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'noreply@oscarbot.ru'
 EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
 EMAIL_USE_SSL = True
+
+
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
