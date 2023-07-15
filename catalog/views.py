@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
+from users.models import User
 from django.forms import inlineformset_factory
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
@@ -71,15 +72,16 @@ class ProductsCreateView(CreateView):
         return context
 
     def form_valid(self, form):
+        form.instance.user = self.request.user if self.request.user.is_authenticated else None
+
+        super().form_valid(form)
 
         formset = self.get_context_data()['formset']
-        self.object = form.save()
-
         if formset.is_valid():
             formset.instance = self.object
             formset.save()
 
-        return super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class CategoryCreateView(CreateView):
@@ -88,6 +90,10 @@ class CategoryCreateView(CreateView):
     template_name = 'catalog/create_categor.html'
 
     success_url = reverse_lazy('catalog:categorii')  # редирект
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user if self.request.user.is_authenticated else None
+        return super().form_valid(form)
 
 
 class ProductsDeleteView(DeleteView):

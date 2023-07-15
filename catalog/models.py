@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -29,6 +30,8 @@ class Product(models.Model):
     price_product = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='цена за покупку')
     date_of_creation_product = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     last_modified_date_product = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='пользователь',
+                             blank=True, null=True)
 
 
     def __str__(self):
