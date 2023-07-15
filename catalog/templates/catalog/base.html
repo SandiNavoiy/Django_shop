@@ -53,22 +53,22 @@
                     </li>
                     <li>
                         {% if user.is_authenticated %}
-                        <a href="/create" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="/create"></use>
-                            </svg>
-                            Создать Продукт
-                        </a>
+                            <a href="/create" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="/create"></use>
+                                </svg>
+                                Создать Продукт
+                            </a>
                         {% endif %}
                     </li>
                     <li>
                         {% if user.is_authenticated %}
-                        <a href="/create_cat" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="/create_cat"></use>
-                            </svg>
-                            Создать категорию
-                        </a>
+                            <a href="/create_cat" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="/create_cat"></use>
+                                </svg>
+                                Создать категорию
+                            </a>
                         {% endif %}
                     </li>
 
@@ -88,6 +88,14 @@
                             Блог
                         </a>
                     </li>
+                    <li>
+                        <a href="{% url 'blog:blog_post_list' %}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="{% url 'blog:blog_post_list' %}"></use>
+                            </svg>
+                            Востановление пароля
+                        </a>
+                    </li>
 
                     <hr>
                     <li>
@@ -104,7 +112,7 @@
                                 </svg>
                                 Профиль
                             </a>
-                       {% else %}
+                        {% else %}
                             <a href="{% url 'users:login' %}" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="{% url 'users:login' %}"></use>
