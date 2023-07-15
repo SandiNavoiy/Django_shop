@@ -1,11 +1,10 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
 from users.apps import UsersConfig
 
 app_name = UsersConfig.name
 urlpatterns = [
-                  path('', LoginView.as_view(), name='login'),  # вывод главной страницы
-
-
-              ]
+    path('', LoginView.as_view(template_name='users/login.html'), name='login'),  # вывод главной страницы
+    path('logout/', LogoutView.as_view(), name='logout'),
+]
