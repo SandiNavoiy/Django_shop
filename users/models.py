@@ -10,7 +10,7 @@ class User(AbstractUser):
     avatar = models.ImageField(upload_to='users/', verbose_name='аватар', **NULLABLE)
     country = models.CharField(max_length=20, verbose_name='страна')
 
-
+    #переопределение поля user  как основного для идентификации на емаил
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
