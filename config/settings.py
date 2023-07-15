@@ -140,3 +140,5 @@ EMAIL_USE_SSL = True
 
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+AUTH_USER_MODEL = "users.User"
