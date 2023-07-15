@@ -18,9 +18,3 @@ class User(AbstractUser):
     # переопределение поля user  как основного для идентификации на емаил
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
-
-    def generate_reset_password_token(self):
-        token = secrets.token_urlsafe(32)
-        self.reset_password_token = token
-        self.save()
-        return token

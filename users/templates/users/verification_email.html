@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+
+    <div class="col-md-9">
+
+        <<p>Здравствуйте, {{ user.username }}!</p>
+    <p>Пожалуйста, подтвердите свой адрес электронной почты, перейдя по следующей ссылке:</p>
+    <a href="{{ verification_url }}">{{ verification_url }}</a>
+    <p>С уважением,</p>
+    <p>Команда OscarBot</p>
+    </div>
+{% endblock %}
