@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
@@ -16,59 +18,7 @@ from users.models import User
 
 
 # Create your views here.
-#
-# class VerificationEmailView(TemplateView):
-#     template_name = "users/verification_email_form.html"
-#
-#     def post(self, request):
-#         email = request.POST.get('email')
-#         try:
-#             user = User.objects.get(email=email)
-#             self.send_verification_email(request, user)
-#         except User.DoesNotExist:
-#             pass  # Обработайте ошибку, если пользователь с таким email не существует
-#         return redirect('users:email_verification_done')
-#
-#     def send_verification_email(self, request, user):
-#         current_site = get_current_site(request)
-#         # Создаем токен для подтверждения адреса электронной почты
-#         token = default_token_generator.make_token(user)
-#         # Закодируем ID пользователя и токен для использования в URL
-#         uid = urlsafe_base64_encode(force_bytes(user.pk))
-#         token = urlsafe_base64_encode(force_bytes(token))
-#         # Создаем URL для подтверждения адреса электронной почты
-#         verification_url = reverse('users:email_verification_confirm', kwargs={'uidb64': uid, 'token': token})
-#         # Создаем контекст для шаблона письма
-#         context = {
-#             'user': user,
-#             'verification_url': verification_url,
-#             'domain': current_site.domain,
-#         }
-#         # Отправляем письмо с подтверждением
-#         subject = 'Подтверждение адреса электронной почты'
-#         message = render_to_string('users/verification_email.html', context)
-#         send_mail(subject, message, 'noreply@oscarbot.ru', [user.email])
-#
-#
-# class VerificationEmailConfirmView(TemplateView):
-#     template_name = 'users/verification_email_confirm.html'
-#
-#     def get(self, request, uidb64, token):
-#         try:
-#             uid = force_str(urlsafe_base64_decode(uidb64))
-#             user = User.objects.get(pk=uid)
-#             if default_token_generator.check_token(user, token):
-#                 user.email_verified = True
-#                 user.save()
-#                 return super().get(request)
-#             else:
-#                 return render(request, 'users/verification_email_invalid.html')
-#         except User.DoesNotExist:
-#             return render(request, 'users/verification_email_invalid.html')
-#
-#
-# class VerificationEmailCompleteView(TemplateView):
-#     template_name = 'users/verification_email_complete.html'
+
 #
 
 class RegisterView(CreateView):
@@ -76,33 +26,57 @@ class RegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = "users/register.html"
     success_url = reverse_lazy('users:login')
+    def form_valid(self, form):
+        # Генерируем уникальный токен для верификации
+        user = form.save(commit=False)
+        user.is_active = False  # Деактивируем пользователя, пока он не подтвердит почту
+        user.set_unusable_password()  # Устанавливаем ненужный пароль
+        user.save()
+
+        # Отправляем письмо с токеном для верификации
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        current_site = get_current_site(self.request)
+        mail_subject = 'Активация аккаунта'
+        message = render_to_string(
+            'users/verification_email.html',
+            {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': uid,
+                'token': token,
+            }
+        )
+        send_mail(mail_subject, message, 'noreply@example.com', [user.email])
+        return redirect('users:login')
+
+class EmailVerificationView(PasswordResetConfirmView):
+    template_name = "users/verification_confirm.html"
+    success_url = reverse_lazy('users:login')
+
+    def get(self, request, *args, **kwargs):
+        # Получаем информацию о пользователе из URL-параметров
+        uidb64 = kwargs['uidb64']
+        token = kwargs['token']
+
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = get_user_model().objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
+            user = None
+
+        # Проверяем, верен ли токен и активируем пользователя, если все в порядке
+        if user is not None and default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.is_verified = True
+            user.save()
+            messages.success(request, 'Ваш аккаунт успешно активирован!')
+            return self.get_redirect_url()
+        else:
+            messages.error(request, 'Неправильная ссылка активации аккаунта!')
+            return self.get_redirect_url()
 
 
-    # def form_valid(self, form):
-    #     response = super().form_valid(form)
-    #     user = form.save()
-    #     self.send_verification_email(user)
-    #     return response
-    #
-    # def send_verification_email(self, user):
-    #     current_site = get_current_site(self.request)
-    #     # Создаем токен для подтверждения адреса электронной почты
-    #     token = default_token_generator.make_token(user)
-    #     # Закодируем ID пользователя и токен для использования в URL
-    #     uid = urlsafe_base64_encode(force_bytes(user.pk))
-    #     token = urlsafe_base64_encode(force_bytes(token))
-    #     # Создаем URL для подтверждения адреса электронной почты
-    #     verification_url = reverse('users:email_verification_confirm', kwargs={'uidb64': uid, 'token': token})
-    #     # Создаем контекст для шаблона письма
-    #     context = {
-    #         'user': user,
-    #         'verification_url': verification_url,
-    #         'domain': current_site.domain,
-    #     }
-    #     # Отправляем письмо с подтверждением
-    #     subject = 'Подтверждение адреса электронной почты'
-    #     message = render_to_string('users/verification_email.html', context)
-    #     send_mail(subject, message, 'noreply@oscarbot.ru', [user.email])
 
 
 class UserUpdateView(UpdateView):

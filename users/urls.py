@@ -5,7 +5,7 @@ from catalog.views import UserPasswordResetView
 from users.apps import UsersConfig
 
 from users.views import RegisterView, UserUpdateView, CustomPasswordResetView, CustomPasswordResetDoneView, \
-    CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
+    CustomPasswordResetConfirmView, CustomPasswordResetCompleteView, EmailVerificationView
 
 app_name = UsersConfig.name
 
@@ -20,7 +20,6 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('reset_password/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('register/', RegisterView.as_view(), name='register'),
-    # path('email_verification/', VerificationEmailConfirmView.as_view(), name='email_verification_confirm'),
-    # path('email_verification/complete/', VerificationEmailCompleteView.as_view(), name='email_verification_complete'),
+    path('verification/<uidb64>/<token>/', EmailVerificationView.as_view(), name='verification_confirm'),
 
 ]

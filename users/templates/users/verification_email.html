@@ -5,11 +5,12 @@
 {% block content %}
 
     <div class="col-md-9">
-
-        <<p>Здравствуйте, {{ user.username }}!</p>
-    <p>Пожалуйста, подтвердите свой адрес электронной почты, перейдя по следующей ссылке:</p>
-    <a href="{{ verification_url }}">{{ verification_url }}</a>
-    <p>С уважением,</p>
-    <p>Команда OscarBot</p>
+        <p>Для активации вашего аккаунта, пожалуйста, перейдите по ссылке:</p>
+        <p>
+            {% csrf_token %}
+            <a href="{{ domain }}{% url 'users:verification_confirm' uidb64=uid token=token %}">
+                Активировать аккаунт
+            </a>
+        </p>
     </div>
 {% endblock %}

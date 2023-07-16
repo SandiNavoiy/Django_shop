@@ -5,7 +5,12 @@
 {% block content %}
 
     <div class="col-md-9">
-
-        <p>Ваш email успешно подтвержден. Теперь вы можете использовать его для входа на сайт.</p>
+<h1>Подтверждение верификации</h1>
+    {% csrf_token %}
+    {% if messages %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     </div>
 {% endblock %}
