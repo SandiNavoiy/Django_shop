@@ -26,20 +26,19 @@ class RegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = "users/register.html"
     success_url = reverse_lazy('users:login')
+
     def form_valid(self, form):
-        # Генерируем уникальный токен для верификации
         user = form.save(commit=False)
-        user.is_active = False  # Деактивируем пользователя, пока он не подтвердит почту
-        user.set_unusable_password()  # Устанавливаем ненужный пароль
+        user.is_active = False  # User will be activated after email verification
         user.save()
 
-        # Отправляем письмо с токеном для верификации
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         current_site = get_current_site(self.request)
-        mail_subject = 'Активация аккаунта'
+        mail_subject = 'Активируйте свой аккаунт'
+
         message = render_to_string(
-            'users/verification_email.html',
+            'users/email_verification.html',
             {
                 'user': user,
                 'domain': current_site.domain,
@@ -47,36 +46,29 @@ class RegisterView(CreateView):
                 'token': token,
             }
         )
-        send_mail(mail_subject, message, 'noreply@example.com', [user.email])
-        return redirect('users:login')
+        user.email_user(mail_subject, message)
 
-class EmailVerificationView(PasswordResetConfirmView):
-    template_name = "users/verification_confirm.html"
-    success_url = reverse_lazy('users:login')
+        return super().form_valid(form)
+
+class EmailVerificationView(TemplateView):
+    template_name = 'users/email_verification_done.html'
 
     def get(self, request, *args, **kwargs):
-        # Получаем информацию о пользователе из URL-параметров
-        uidb64 = kwargs['uidb64']
-        token = kwargs['token']
+        uidb64 = kwargs.get('uidb64')
+        token = kwargs.get('token')
 
         try:
-            uid = urlsafe_base64_decode(uidb64).decode()
-            user = get_user_model().objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
-            user = None
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
 
-        # Проверяем, верен ли токен и активируем пользователя, если все в порядке
-        if user is not None and default_token_generator.check_token(user, token):
-            user.is_active = True
-            user.is_verified = True
-            user.save()
-            messages.success(request, 'Ваш аккаунт успешно активирован!')
-            return self.get_redirect_url()
-        else:
-            messages.error(request, 'Неправильная ссылка активации аккаунта!')
-            return self.get_redirect_url()
-
-
+            if default_token_generator.check_token(user, token):
+                user.is_active = True
+                user.save()
+                return self.render_to_response({})
+            else:
+                return redirect('users:verification_failed')
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return redirect('users:verification_failed')
 
 
 class UserUpdateView(UpdateView):

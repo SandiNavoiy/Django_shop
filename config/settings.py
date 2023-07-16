@@ -132,7 +132,7 @@ MEDIA_URL = '/media/'  # набор полей которые отвечают �
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'   # это для отпраки писем
+EMAIL_HOST = 'smtp.yandex.ru'   # это для отправки писем
 EMAIL_PORT = 465
 
 EMAIL_HOST_USER = 'noreply@oscarbot.ru'

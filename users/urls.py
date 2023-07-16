@@ -20,6 +20,7 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('reset_password/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('verification/<uidb64>/<token>/', EmailVerificationView.as_view(), name='verification_confirm'),
+    path('verify/<str:uidb64>/<str:token>/', EmailVerificationView.as_view(), name='email_verification'),
+
 
 ]
