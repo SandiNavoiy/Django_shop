@@ -16,64 +16,64 @@ from users.models import User
 
 
 # Create your views here.
-
-class VerificationEmailView(TemplateView):
-    template_name = "users/verification_email_form.html"
-
-    def post(self, request):
-        email = request.POST.get('email')
-        try:
-            user = User.objects.get(email=email)
-            self.send_verification_email(request, user)
-        except User.DoesNotExist:
-            pass  # Обработайте ошибку, если пользователь с таким email не существует
-        return redirect('users:email_verification_done')
-
-    def send_verification_email(self, request, user):
-        current_site = get_current_site(request)
-        # Создаем токен для подтверждения адреса электронной почты
-        token = default_token_generator.make_token(user)
-        # Закодируем ID пользователя и токен для использования в URL
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        token = urlsafe_base64_encode(force_bytes(token))
-        # Создаем URL для подтверждения адреса электронной почты
-        verification_url = reverse('users:email_verification_confirm', kwargs={'uidb64': uid, 'token': token})
-        # Создаем контекст для шаблона письма
-        context = {
-            'user': user,
-            'verification_url': verification_url,
-            'domain': current_site.domain,
-        }
-        # Отправляем письмо с подтверждением
-        subject = 'Подтверждение адреса электронной почты'
-        message = render_to_string('users/verification_email.html', context)
-        send_mail(subject, message, 'noreply@oscarbot.ru', [user.email])
-
-
-class VerificationEmailConfirmView(TemplateView):
-    template_name = 'users/verification_email_confirm.html'
-
-    def get(self, request, uidb64, token):
-        try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-            if default_token_generator.check_token(user, token):
-                user.email_verified = True
-                user.save()
-                return super().get(request)
-            else:
-                return render(request, 'users/verification_email_invalid.html')
-        except User.DoesNotExist:
-            return render(request, 'users/verification_email_invalid.html')
-
-
-class VerificationEmailCompleteView(TemplateView):
-    template_name = 'users/verification_email_complete.html'
-
+#
+# class VerificationEmailView(TemplateView):
+#     template_name = "users/verification_email_form.html"
+#
+#     def post(self, request):
+#         email = request.POST.get('email')
+#         try:
+#             user = User.objects.get(email=email)
+#             self.send_verification_email(request, user)
+#         except User.DoesNotExist:
+#             pass  # Обработайте ошибку, если пользователь с таким email не существует
+#         return redirect('users:email_verification_done')
+#
+#     def send_verification_email(self, request, user):
+#         current_site = get_current_site(request)
+#         # Создаем токен для подтверждения адреса электронной почты
+#         token = default_token_generator.make_token(user)
+#         # Закодируем ID пользователя и токен для использования в URL
+#         uid = urlsafe_base64_encode(force_bytes(user.pk))
+#         token = urlsafe_base64_encode(force_bytes(token))
+#         # Создаем URL для подтверждения адреса электронной почты
+#         verification_url = reverse('users:email_verification_confirm', kwargs={'uidb64': uid, 'token': token})
+#         # Создаем контекст для шаблона письма
+#         context = {
+#             'user': user,
+#             'verification_url': verification_url,
+#             'domain': current_site.domain,
+#         }
+#         # Отправляем письмо с подтверждением
+#         subject = 'Подтверждение адреса электронной почты'
+#         message = render_to_string('users/verification_email.html', context)
+#         send_mail(subject, message, 'noreply@oscarbot.ru', [user.email])
+#
+#
+# class VerificationEmailConfirmView(TemplateView):
+#     template_name = 'users/verification_email_confirm.html'
+#
+#     def get(self, request, uidb64, token):
+#         try:
+#             uid = force_str(urlsafe_base64_decode(uidb64))
+#             user = User.objects.get(pk=uid)
+#             if default_token_generator.check_token(user, token):
+#                 user.email_verified = True
+#                 user.save()
+#                 return super().get(request)
+#             else:
+#                 return render(request, 'users/verification_email_invalid.html')
+#         except User.DoesNotExist:
+#             return render(request, 'users/verification_email_invalid.html')
+#
+#
+# class VerificationEmailCompleteView(TemplateView):
+#     template_name = 'users/verification_email_complete.html'
+#
 
 class RegisterView(CreateView):
     model = User
-    form_class = UserCreationForm
+    form_class = UserRegisterForm
     template_name = "users/register.html"
     success_url = reverse_lazy('users:login')
 
