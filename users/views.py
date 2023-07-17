@@ -24,6 +24,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
+        """отправка ссылки"""
         user = form.save(commit=False)
         user.is_active = False  # User will be activated after email verification
         user.save()
@@ -37,14 +38,13 @@ class RegisterView(CreateView):
         massage = render_to_string('users/email_verification.html', {
             'activation_url': activation_url
         })
-
-
         user.email_user(mail_subject, massage)
 
         return super().form_valid(form)
 
 
 def activate_account(request, uidb64):
+    """активация"""
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=int(uid))
@@ -73,7 +73,7 @@ class UserUpdateView(UpdateView):
         return self.request.user
 
 def gen_pass(request):
-
+    """Генерация пароля"""
     new_password = str(random.randint(1000, 9999))
     request.user.set_password(new_password)
     request.user.save()
