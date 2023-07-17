@@ -15,6 +15,6 @@ urlpatterns = [
     path('verify/<str:uidb64>/', activate_account, name='email_verification'),
     path('success', ActivationOk.as_view(), name='activation_ok'),
     path('failed', ActivationFailed.as_view(), name='activation_failed'),
-    path("gen_new_pass/", gen_pass, name="gen_pass"),
+    path("gen_pass/", gen_pass, name="gen_pass"),
 
 ]

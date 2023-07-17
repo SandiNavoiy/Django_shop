@@ -133,36 +133,4 @@ class ProductsUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class UserPasswordResetView(PasswordResetView):
-    email_template_name = 'users/password_reset_email.html'
-    success_url = reverse_lazy('password_reset_done')
 
-    def form_valid(self, form):
-        # Генерируем и сохраняем автоматически сгенерированный пароль для пользователя
-        user = User.objects.get(email=form.cleaned_data['email'])
-        new_password = User.objects.make_random_password()
-        user.set_password(new_password)
-        user.save()
-
-        # Генерируем токен для сброса пароля
-        context = {
-            'email': user.email,
-            'domain': self.request.META['HTTP_HOST'],
-            'site_name': _('Your Site'),
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'user': user,
-            'token': default_token_generator.make_token(user),
-            'protocol': 'http' if self.request.is_secure() else 'https',
-            'new_password': new_password,  # Передаем сгенерированный пароль в шаблон
-        }
-
-        # Отправляем письмо с инструкциями по сбросу пароля и автоматически сгенерированным паролем
-        self.send_mail(
-            subject_template_name='registration/password_reset_subject.txt',
-            email_template_name=self.email_template_name,
-            context=context,
-            from_email=None,
-            to_email=form.cleaned_data['email'],
-            html_email_template_name=None,
-        )
-        return super().form_valid(form)

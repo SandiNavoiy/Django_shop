@@ -1,4 +1,4 @@
-from random import random
+import random
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
@@ -77,5 +77,6 @@ def gen_pass(request):
     new_password = str(random.randint(1000, 9999))
     request.user.set_password(new_password)
     request.user.save()
-    send_mail('Ваш пароль изменен', f"Ваш пароль: {new_password}",  [request.user.email])
+    send_mail('Ваш пароль изменен',
+              f"Ваш пароль: {new_password}", 'noreply@oscarbot.ru', [request.user.email])
     return redirect('catalog:index')
