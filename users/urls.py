@@ -2,7 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from users.apps import UsersConfig
 from users.views import RegisterView, UserUpdateView, ActivationFailed, \
-    ActivationOk, activate_account, gen_pass
+    ActivationOk, activate_account, gen_pass, gen_pass_unlog
 
 app_name = UsersConfig.name
 
@@ -16,5 +16,6 @@ urlpatterns = [
     path('success', ActivationOk.as_view(), name='activation_ok'),
     path('failed', ActivationFailed.as_view(), name='activation_failed'),
     path("gen_pass/", gen_pass, name="gen_pass"),
+
 
 ]

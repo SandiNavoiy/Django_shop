@@ -1,5 +1,7 @@
 import random
 
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
@@ -80,3 +82,8 @@ def gen_pass(request):
     send_mail('Ваш пароль изменен',
               f"Ваш пароль: {new_password}", 'noreply@oscarbot.ru', [request.user.email])
     return redirect('catalog:index')
+
+
+
+
+
