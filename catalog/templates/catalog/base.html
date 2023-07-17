@@ -125,6 +125,12 @@
                                 </svg>
                                 Войти
                             </a>
+                            <a href="{% url 'users:password_reset' %}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="{% url 'users:password_reset' %}"></use>
+                                </svg>
+                                Востановление пароля
+                            </a>
                             <a href="{% url 'users:register' %}" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16">
                                 <use xlink:href="{% url 'users:register' %}"></use>

@@ -1,5 +1,7 @@
 import random
 
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.contrib.sites.shortcuts import get_current_site
@@ -11,6 +13,8 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import CreateView, UpdateView, TemplateView
 from django.utils.encoding import force_str
+
+from catalog.forms import UserForgotPasswordForm, UserSetNewPasswordForm
 from users.forms import UserRegisterForm, UserUpdate
 from users.models import User
 
@@ -84,6 +88,35 @@ def gen_pass(request):
     return redirect('catalog:index')
 
 
+class UserForgotPasswordView(SuccessMessageMixin, PasswordResetView):
+    """
+    Представление по сбросу пароля по почте
+    """
+    form_class = UserForgotPasswordForm
+    template_name = 'users/user_password_reset.html'
+    success_url = reverse_lazy('catalog:index')
+    success_message = 'Письмо с инструкцией по восстановлению пароля отправлена на ваш email'
+    subject_template_name = 'users/password_subject_reset_mail.txt'
+    email_template_name = 'users/password_reset_mail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Запрос на восстановление пароля'
+        return context
+
+
+class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
+    """
+    Представление установки нового пароля
+    """
+    form_class = UserSetNewPasswordForm
+    template_name = 'users/user_password_set_new.html'
+    success_url = reverse_lazy('catalog:index')
+    success_message = 'Пароль успешно изменен. Можете авторизоваться на сайте.'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Установить новый пароль'
+        return context
 
 
