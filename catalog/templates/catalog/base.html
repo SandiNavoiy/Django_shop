@@ -52,20 +52,24 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/create" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="/create"></use>
-                            </svg>
-                            Создать Продукт
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="/create" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="/create"></use>
+                                </svg>
+                                Создать Продукт
+                            </a>
+                        {% endif %}
                     </li>
                     <li>
-                        <a href="/create_cat" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="/create_cat"></use>
-                            </svg>
-                            Создать категорию
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="/create_cat" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="/create_cat"></use>
+                                </svg>
+                                Создать категорию
+                            </a>
+                        {% endif %}
                     </li>
 
                     <li>
@@ -84,34 +88,65 @@
                             Блог
                         </a>
                     </li>
+
+
+                    <hr>
+                    <li>
+                        {% if user.is_authenticated %}
+                            <a class="nav-link text-white">
+
+                                вы вошли как:
+                                {{ user }}
+                            </a>
+
+
+                            <a href="{% url 'users:logout' %}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="{% url 'users:logout' %}"></use>
+                                </svg>
+                                Выход
+                            </a>
+                            <a href="{% url 'users:update' %}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="{% url 'users:update' %}"></use>
+                                </svg>
+                                Профиль
+                            </a>
+                            <a href="{% url 'users:gen_pass' %}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="{% url 'users:gen_pass' %}"></use>
+                                </svg>
+                                Сбросить пароль
+                            </a>
+                        {% else %}
+                            <a href="{% url 'users:login' %}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="{% url 'users:login' %}"></use>
+                                </svg>
+                                Войти
+                            </a>
+                            <a href="{% url 'users:register' %}" class="nav-link text-white">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                                <use xlink:href="{% url 'users:register' %}"></use>
+                            </svg>
+                            Регистрация
+                            </a>
+
+                        {% endif %}
+                    </li>
+
+
                 </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong>пользователь</strong>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">Профиль</a></li>
-                        <li><a class="dropdown-item" href="#">Выход</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
 
         {% block content %}
-
-
-
         {% endblock %}
         {% include 'catalog/inc.html' %} {# подключение подшаблона #}
 
     </div>
 </div>
 
-<script src="/static/bootstrap/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
+
 </body>
 </html>

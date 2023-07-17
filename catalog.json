@@ -1,0 +1,269 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "category_name": "AUDI",
+      "description_category": "╠р°шэ√ ьрЁъш AUDI",
+      "picture_category": "images/Audi.jpg"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "category_name": "BMW",
+      "description_category": "╠р°шэ√ ьрЁъш BMW",
+      "picture_category": "images/bmw.jpg"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "category_name": "ford",
+      "description_category": "╠р°шэ√ ьрЁъш FORD",
+      "picture_category": "images/Ford.jpg"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "category_name": "Doodje",
+      "description_category": "╠р°шэ√ ьрЁъш Doodje",
+      "picture_category": "images/dodge.jpg"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "category_name": "╥ЁръЄюЁ",
+      "description_category": "Ўряъє",
+      "picture_category": ""
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 122,
+    "fields": {
+      "product_name": "A2",
+      "description_product": "A1 model",
+      "picture_product": "blog/Audi_1LCa9Qd.jpg",
+      "category_name": 1,
+      "price_product": "325.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.595Z",
+      "last_modified_date_product": "2023-07-13T19:31:19.616Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 123,
+    "fields": {
+      "product_name": "A3",
+      "description_product": "A3 modeliuf",
+      "picture_product": "blog/Audi_X9SPLcc.jpg",
+      "category_name": 1,
+      "price_product": "46364.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.595Z",
+      "last_modified_date_product": "2023-07-13T19:15:51.775Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 124,
+    "fields": {
+      "product_name": "A4",
+      "description_product": "A4 model",
+      "picture_product": "blog/Audi_dzha0Lz.jpg",
+      "category_name": 1,
+      "price_product": "234553.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.595Z",
+      "last_modified_date_product": "2023-07-13T19:53:49.950Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 125,
+    "fields": {
+      "product_name": "Ford 1",
+      "description_product": "Ford 1 m",
+      "picture_product": "blog/Ford_Mzai35A.jpg",
+      "category_name": 3,
+      "price_product": "457457.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.595Z",
+      "last_modified_date_product": "2023-07-13T20:08:14.781Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 126,
+    "fields": {
+      "product_name": "Ford 2",
+      "description_product": "Ford 2 ,jsdhgjhsdjghsdkghsdjgljdzvhkzhvns,dnelkghlvnzkvnlkzeflafzkvbzljhgeihglkzfnvzklvnzlekghzvbmxvnlkzhglsdhglkznvlkshglksvnkvnlksugoetja.ekttjguiyc,bv,mbvkjhgkuaetkjaebklajf;lajguixng,mshgjkzhvsmsmbkjgfuivsjbkjchsakjbg,ks;pkjafbuyhjabhjfjhblkjsv,smbvghfhjgiujb.,m;ljug,j,gkjbnsgsgsg",
+      "picture_product": "blog/car.jpg",
+      "category_name": 3,
+      "price_product": "4367457.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.595Z",
+      "last_modified_date_product": "2023-07-14T13:00:17.338Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 127,
+    "fields": {
+      "product_name": "Ford 3",
+      "description_product": "Ford 3 m",
+      "picture_product": "blog/car_dBVWc5l.jpg",
+      "category_name": 3,
+      "price_product": "4576.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.595Z",
+      "last_modified_date_product": "2023-07-13T20:32:14.657Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 128,
+    "fields": {
+      "product_name": "BMW 1",
+      "description_product": "BMW 1 m",
+      "picture_product": "blog/bmw_GXNkG5H.jpg",
+      "category_name": 2,
+      "price_product": "32565.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.596Z",
+      "last_modified_date_product": "2023-07-13T20:34:29.602Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 129,
+    "fields": {
+      "product_name": "BMW 2",
+      "description_product": "BMW 2 mtyuityii",
+      "picture_product": "blog/car_i38GTLH.jpg",
+      "category_name": 2,
+      "price_product": "6457.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.596Z",
+      "last_modified_date_product": "2023-07-13T21:00:23.612Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 130,
+    "fields": {
+      "product_name": "Doodje 1",
+      "description_product": "Doodje 1",
+      "picture_product": "blog/dodge_P3DdDOf.jpg",
+      "category_name": 4,
+      "price_product": "436.00",
+      "date_of_creation_product": "2023-06-21T14:08:57.596Z",
+      "last_modified_date_product": "2023-07-13T22:00:21.085Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 132,
+    "fields": {
+      "product_name": "A5",
+      "description_product": "A4gsegesg",
+      "picture_product": "blog/Audi_vAjsEiw.jpg",
+      "category_name": 1,
+      "price_product": "555.00",
+      "date_of_creation_product": "2023-06-25T19:00:24.163Z",
+      "last_modified_date_product": "2023-07-13T22:41:43.730Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 133,
+    "fields": {
+      "product_name": "A6",
+      "description_product": "A6 model",
+      "picture_product": "blog/Audi_lVaWkTI.jpg",
+      "category_name": 1,
+      "price_product": "3235.00",
+      "date_of_creation_product": "2023-06-25T19:01:15.879Z",
+      "last_modified_date_product": "2023-07-14T04:17:57.459Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 134,
+    "fields": {
+      "product_name": "A7",
+      "description_product": "A7 model",
+      "picture_product": "blog/Audi_gadTnTr.jpg",
+      "category_name": 1,
+      "price_product": "1.00",
+      "date_of_creation_product": "2023-06-25T19:01:51.142Z",
+      "last_modified_date_product": "2023-07-14T13:18:58.513Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 135,
+    "fields": {
+      "product_name": "A1111",
+      "description_product": "A1111 model",
+      "picture_product": "blog/Audi_PlPUdOV.jpg",
+      "category_name": 1,
+      "price_product": "3453465.00",
+      "date_of_creation_product": "2023-06-25T19:41:53.889Z",
+      "last_modified_date_product": "2023-07-14T18:09:50.850Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 136,
+    "fields": {
+      "product_name": "A7868",
+      "description_product": "wghgbhweg",
+      "picture_product": "blog/Audi_UrBgcGZ.jpg",
+      "category_name": 1,
+      "price_product": "234523.00",
+      "date_of_creation_product": "2023-06-25T19:44:05.353Z",
+      "last_modified_date_product": "2023-06-25T19:44:05.353Z"
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 2,
+    "fields": {
+      "product_name": 126,
+      "number_of_version": 2.0,
+      "name_of_version": "gthdfz",
+      "is_activ": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 3,
+    "fields": {
+      "product_name": 127,
+      "number_of_version": 1.0,
+      "name_of_version": "",
+      "is_activ": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 4,
+    "fields": {
+      "product_name": 134,
+      "number_of_version": 3.0,
+      "name_of_version": "1",
+      "is_activ": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 6,
+    "fields": {
+      "product_name": 135,
+      "number_of_version": 2.0,
+      "name_of_version": "2",
+      "is_activ": true
+    }
+  }
+]

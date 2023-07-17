@@ -20,6 +20,13 @@ class ProductForm(forms.ModelForm):
         model = Product  # модель
         fields = '__all__'  # поля
 
+        def save(self, commit=True):
+            instance = super().save(commit=False)
+            instance.user = self.request.user
+            if commit:
+                instance.save()
+            return instance
+
 
     def clean_product_name(self):
         """метод валидации по запрерщенным словам"""
