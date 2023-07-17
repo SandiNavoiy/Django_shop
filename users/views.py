@@ -1,9 +1,5 @@
-from django.contrib import messages
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetDoneView, \
-    PasswordResetCompleteView
+from random import random
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
@@ -76,20 +72,10 @@ class UserUpdateView(UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+def gen_pass(request):
 
-class CustomPasswordResetView(PasswordResetView):
-    email_template_name = 'users/password_reset_email.html'
-    success_url = reverse_lazy('users:password_reset_done')
-
-
-class CustomPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'users/password_reset_done.html'
-
-
-class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    success_url = reverse_lazy('users:password_reset_complete')
-    template_name = 'users/password_reset_confirm.html'
-
-
-class CustomPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'users/password_reset_complete.html'
+    new_password = str(random.randint(1000, 9999))
+    request.user.set_password(new_password)
+    request.user.save()
+    send_mail('Ваш пароль изменен', f"Ваш пароль: {new_password}",  [request.user.email])
+    return redirect('catalog:index')
