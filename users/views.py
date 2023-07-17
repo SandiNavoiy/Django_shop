@@ -32,43 +32,39 @@ class RegisterView(CreateView):
         user.is_active = False  # User will be activated after email verification
         user.save()
 
-        token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         current_site = get_current_site(self.request)
+        activation_link = reverse_lazy(
+            'users:email_verification', kwargs={'uidb64': uid})
+        activation_url = f"{current_site}{activation_link}"
         mail_subject = 'Активируйте свой аккаунт'
+        massage = render_to_string('users/email_verification.html', {
+            'activation_url': activation_url
+        })
 
-        message = render_to_string(
-            'users/email_verification.html',
-            {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': uid,
-                'token': token,
-            }
-        )
-        user.email_user(mail_subject, message)
+
+        user.email_user(mail_subject, massage)
 
         return super().form_valid(form)
 
-class EmailVerificationView(TemplateView):
+
+def activate_account(request, uidb64):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=int(uid))
+        user.is_active = True
+        user.save()
+        return redirect('users:activation_ok')
+    except User.DoesNotExist:
+        return redirect('users:activation_failed')
+
+
+class ActivationOk(TemplateView):
     template_name = 'users/email_verification_done.html'
 
-    def get(self, request, *args, **kwargs):
-        uidb64 = kwargs.get('uidb64')
-        token = kwargs.get('token')
 
-        try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-
-            if default_token_generator.check_token(user, token):
-                user.is_active = True
-                user.save()
-                return self.render_to_response({})
-            else:
-                return redirect('users:verification_failed')
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-            return redirect('users:verification_failed')
+class ActivationFailed(TemplateView):
+    template_name = 'users/email_verification_failed.html'
 
 
 class UserUpdateView(UpdateView):
@@ -85,12 +81,15 @@ class CustomPasswordResetView(PasswordResetView):
     email_template_name = 'users/password_reset_email.html'
     success_url = reverse_lazy('users:password_reset_done')
 
+
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'users/password_reset_done.html'
+
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     success_url = reverse_lazy('users:password_reset_complete')
     template_name = 'users/password_reset_confirm.html'
+
 
 class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'users/password_reset_complete.html'

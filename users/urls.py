@@ -5,7 +5,8 @@ from catalog.views import UserPasswordResetView
 from users.apps import UsersConfig
 
 from users.views import RegisterView, UserUpdateView, CustomPasswordResetView, CustomPasswordResetDoneView, \
-    CustomPasswordResetConfirmView, CustomPasswordResetCompleteView, EmailVerificationView
+    CustomPasswordResetConfirmView, CustomPasswordResetCompleteView, ActivationFailed, \
+    ActivationOk, activate_account
 
 app_name = UsersConfig.name
 
@@ -20,7 +21,8 @@ urlpatterns = [
          name='password_reset_confirm'),
     path('reset_password/complete/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('register/', RegisterView.as_view(), name='register'),
-    path('verify/<str:uidb64>/<str:token>/', EmailVerificationView.as_view(), name='email_verification'),
-
+    path('verify/<str:uidb64>/', activate_account, name='email_verification'),
+    path('success', ActivationOk.as_view(), name='activation_ok'),
+    path('failed', ActivationFailed.as_view(), name='activation_failed'),
 
 ]

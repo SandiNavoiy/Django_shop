@@ -1,19 +1,10 @@
-{% extends 'catalog/base.html' %}
-{% load crispy_forms_tags %}
 
-{% block content %}
-{% csrf_token %}
-{% autoescape off %}
-    {% csrf_token %}
+
+
 Привет, {{ user.username }}!
 
 Пожалуйста, перейдите по ссылке ниже для активации вашей учетной записи:
 
-http://{{ domain }}{% url 'users:email_verification' uidb64=uid token=token %}
+http://{{ activation_url}}
 
 Если вы не регистрировались на нашем сайте, проигнорируйте это письмо.
-
-С уважением,
-Администрация сайта
-{% endautoescape %}
-{% endblock %}
