@@ -79,7 +79,7 @@ class UserUpdateView(UpdateView):
         return self.request.user
 
 def gen_pass(request):
-    """Генерация пароля"""
+    """Генерация пароля https://proghunter.ru/articles/django-base-2023-password-recovery-form"""
     new_password = str(random.randint(1000, 9999))
     request.user.set_password(new_password)
     request.user.save()
