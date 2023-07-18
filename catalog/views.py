@@ -109,6 +109,12 @@ class ProductsUpdateView(UpdateView):
     form_class = ProductForm
     template_name = 'catalog/update_form.html'
 
+    # def dispatch(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     if self.object.user != self.request.user:
+    #         raise Http404("Вы не являетесь владельцем этого продукта.")
+    #     return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self) -> str:
         new_url = slugify(self.object.pk)
         return reverse('catalog:product', args=[new_url])
