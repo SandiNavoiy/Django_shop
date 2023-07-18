@@ -2,7 +2,7 @@ from django.contrib.auth.views import PasswordResetView
 
 from users.models import User
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
@@ -109,11 +109,11 @@ class ProductsUpdateView(UpdateView):
     form_class = ProductForm
     template_name = 'catalog/update_form.html'
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #     if self.object.user != self.request.user:
-    #         raise Http404("Вы не являетесь владельцем этого продукта.")
-    #     return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.user != self.request.user:
+            raise Http404("Вы не являетесь владельцем этого продукта.")
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self) -> str:
         new_url = slugify(self.object.pk)
