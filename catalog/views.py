@@ -53,6 +53,9 @@ class CategoriiListView(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'catalog/categorii.html'
     context_object_name = 'сategory'
+    #специально оставленый для учебы редирект при отсудствии авторизации
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
 
 class ProductsCreateView(LoginRequiredMixin, CreateView):
@@ -93,6 +96,7 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
     template_name = 'catalog/create_categor.html'
 
     success_url = reverse_lazy('catalog:categorii')  # редирект
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user if self.request.user.is_authenticated else None
