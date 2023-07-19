@@ -20,7 +20,11 @@
                         <div class="row g-0">
                             <div class="col">
                                 <img class="entry-preview{max-width: 20px; max-height: 20px;}"
+                                        {% if object.preview_image %}
                                      src="{{ object.preview_image.url }}" alt="...">
+                                        {% else %}
+                                            <p> нет фото</p>
+                                        {% endif %}
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -28,6 +32,7 @@
                                     <p class="card-text">Текст записи:<br>{{ object.content }} </p>
                                     <p class="card-text">Создано:{{ object.created_at }} </p>
                                     <p class="card-text">Количество просмотров:{{ object.views_count }} </p>
+
                                     <a class="detail" type="submit" href={% url 'blog:detail' object.slug %}><p>
                                         Подробнее...</p></a>
 

@@ -5,8 +5,12 @@
         <div class="d-flex flex-column h-100 justify-content-center align-items-center">
             <h1 class="text-center title">Записи в блогах</h1>
             <div class="col">
-                <img class="entry-preview" src="{{ object.preview_image.url }}"
-                     alt="...">
+                {% if object.preview_image %}
+                    <img class="entry-preview" src="{{ object.preview_image.url }}"
+                         alt="...">
+                {% else %}
+                    <p> нет фото</p>
+                {% endif %}
             </div>
 
 

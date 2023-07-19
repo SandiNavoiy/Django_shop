@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.mail import send_mail
+from django.http import Http404
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
@@ -50,6 +51,13 @@ class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'blog/blog_post_form.html'
     login_url = 'users:login'
     redirect_field_name = 'redirect_to'
+    def dispatch(self, request, *args, **kwargs):
+        """проверка что редактирование доступно владельцу или модератору или root"""
+        self.object = self.get_object()
+        if self.object.user != self.request.user and not self.request.user.is_staff and not self.request.user.is_superuser:
+            raise Http404("Вы не являетесь владельцем этого продукта.")
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self) -> str:
         new_slug = slugify(self.object.title)
@@ -65,3 +73,11 @@ class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     login_url = 'users:login'
     redirect_field_name = 'redirect_to'
     success_url = reverse_lazy('blog:blog_post_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        """проверка что редактирование доступно владельцу или модератору или root"""
+        self.object = self.get_object()
+        if self.object.user != self.request.user and not self.request.user.is_staff and not self.request.user.is_superuser:
+            raise Http404("Вы не являетесь владельцем этого продукта.")
+
+        return super().dispatch(request, *args, **kwargs)

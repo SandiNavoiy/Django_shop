@@ -114,6 +114,11 @@ class ProductsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
     permission_required = "catalog.delete_product"
     template_name = 'catalog/delete_form.html'
     success_url = reverse_lazy('catalog:index')
+    def dispatch(self, request, *args, **kwargs):
+        """проверка что редактирование доступно владельцу или модератору или root"""
+        self.object = self.get_object()
+        if self.object.user != self.request.user and not self.request.user.is_staff and not self.request.user.is_superuser:
+            raise Http404("Вы не являетесь владельцем этого продукта.")
 
 
 class ProductsUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -123,10 +128,11 @@ class ProductsUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     template_name = 'catalog/update_form.html'
 
     def dispatch(self, request, *args, **kwargs):
-        """проверка что редактирование доступно владельцу"""
+        """проверка что редактирование доступно владельцу или модератору или root"""
         self.object = self.get_object()
-        if self.object.user != self.request.user:
+        if self.object.user != self.request.user and not self.request.user.is_staff and not self.request.user.is_superuser:
             raise Http404("Вы не являетесь владельцем этого продукта.")
+
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self) -> str:
