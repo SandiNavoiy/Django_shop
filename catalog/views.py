@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import PasswordResetView
 
 from users.models import User
@@ -36,6 +36,8 @@ class UserDetailView(DetailView):
     template_name = 'catalog/contacts.html'
     context_object_name = 'user'
     pk_url_kwarg = 'pk'
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
     def get_object(self, queryset=None):
         # Возвращаем первого пользователя
@@ -58,9 +60,10 @@ class CategoriiListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'redirect_to'
 
 
-class ProductsCreateView(LoginRequiredMixin, CreateView):
+class ProductsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = "catalog.add_product"
     template_name = 'catalog/create_product.html'
 
     success_url = reverse_lazy('catalog:index')  # редирект
@@ -90,9 +93,12 @@ class ProductsCreateView(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class CategoryCreateView(LoginRequiredMixin, CreateView):
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
+    permission_required = "catalog.add_category"
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
     template_name = 'catalog/create_categor.html'
 
     success_url = reverse_lazy('catalog:categorii')  # редирект
@@ -103,18 +109,21 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductsDeleteView(LoginRequiredMixin, DeleteView):
+class ProductsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
+    permission_required = "catalog.delete_product"
     template_name = 'catalog/delete_form.html'
     success_url = reverse_lazy('catalog:index')
 
 
-class ProductsUpdateView(LoginRequiredMixin, UpdateView):
+class ProductsUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = "catalog.change_product"
     template_name = 'catalog/update_form.html'
 
     def dispatch(self, request, *args, **kwargs):
+        """проверка что редактирование доступно владельцу"""
         self.object = self.get_object()
         if self.object.user != self.request.user:
             raise Http404("Вы не являетесь владельцем этого продукта.")

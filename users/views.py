@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -69,7 +70,7 @@ class ActivationFailed(TemplateView):
     template_name = 'users/email_verification_failed.html'
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdate
     template_name = "users/update_user.html"

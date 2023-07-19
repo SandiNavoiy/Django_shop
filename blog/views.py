@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.forms import inlineformset_factory
@@ -24,9 +25,12 @@ class BlogListView(ListView):
         return queryset
 
 
-class BlogCreateView(LoginRequiredMixin,CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = BlogPost
     form_class = BlogPostForm
+
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
     template_name = 'blog/blog_post_create.html'
     success_url = reverse_lazy('blog:blog_post_list')  # редирект
 
@@ -44,10 +48,13 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogUpdateView(LoginRequiredMixin, UpdateView):
+class BlogUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = BlogPost
     form_class = BlogPostForm
+    permission_required = "blog.change_blogpost"
     template_name = 'blog/blog_post_form.html'
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
     def get_success_url(self) -> str:
         new_slug = slugify(self.object.title)
@@ -56,7 +63,10 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
 
 
 
-class BlogDeleteView(LoginRequiredMixin, DeleteView):
+class BlogDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = BlogPost
     template_name = 'blog/blog_post_delete.html'
+    permission_required = "blog.delete_blogpost"
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
     success_url = reverse_lazy('blog:blog_post_list')
