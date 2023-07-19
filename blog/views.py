@@ -1,16 +1,11 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
-
 from blog.forms import BlogPostForm
 from blog.models import BlogPost
-from catalog.forms import ProductForm, CategoryForm, VersionForm
-from catalog.models import Product, Category, Version
 
 
 # Create your views here.
