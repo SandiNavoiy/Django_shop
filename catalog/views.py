@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView
 
 from users.models import User
@@ -48,13 +49,13 @@ class ProductsDetailView(DetailView):
     pk_url_kwarg = 'pk'
 
 
-class CategoriiListView(ListView):
+class CategoriiListView(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'catalog/categorii.html'
     context_object_name = 'сategory'
 
 
-class ProductsCreateView(CreateView):
+class ProductsCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/create_product.html'
@@ -86,7 +87,7 @@ class ProductsCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
     template_name = 'catalog/create_categor.html'
@@ -98,13 +99,13 @@ class CategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductsDeleteView(DeleteView):
+class ProductsDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'catalog/delete_form.html'
     success_url = reverse_lazy('catalog:index')
 
 
-class ProductsUpdateView(UpdateView):
+class ProductsUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/update_form.html'

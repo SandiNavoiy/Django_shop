@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.forms import inlineformset_factory
@@ -23,7 +24,7 @@ class BlogListView(ListView):
         return queryset
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin,CreateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'blog/blog_post_create.html'
@@ -43,7 +44,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogPost
     form_class = BlogPostForm
     template_name = 'blog/blog_post_form.html'
@@ -55,7 +56,7 @@ class BlogUpdateView(UpdateView):
 
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogPost
     template_name = 'blog/blog_post_delete.html'
     success_url = reverse_lazy('blog:blog_post_list')
