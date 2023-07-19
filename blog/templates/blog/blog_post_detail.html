@@ -5,8 +5,12 @@
         <div class="d-flex flex-column h-100 justify-content-center align-items-center">
             <h1 class="text-center title">Записи в блогах</h1>
             <div class="col">
-                <img class="entry-preview" src="{{ object.preview_image.url }}"
-                     alt="...">
+                {% if object.preview_image %}
+                    <img class="entry-preview" src="{{ object.preview_image.url }}"
+                         alt="...">
+                {% else %}
+                    <p> нет фото</p>
+                {% endif %}
             </div>
 
 
@@ -19,9 +23,12 @@
             </div>
             <p class="mb-1">Дата создания: {{ object.created_at }}</p>
             <p class="mb-1">Количество просмотров: {{ object.views_count }}</p>
-            <a class="btn btn-primary blog m-2" href={% url 'blog:delete' object.slug %}>Удалить</a>
-            <a class="btn btn-primary blog m-2" href={% url 'blog:update' object.slug %}>Изменить</a>
-
+            {% if perms.blog.delete_blogpost %}
+                <a class="btn btn-primary blog m-2" href={% url 'blog:delete' object.slug %}>Удалить</a>
+            {% endif %}
+            {% if perms.blog.change_blogpost %}
+                <a class="btn btn-primary blog m-2" href={% url 'blog:update' object.slug %}>Изменить</a>
+            {% endif %}
         </div>
 
     </div>

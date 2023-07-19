@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import PasswordResetView
 
 from users.models import User
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
@@ -35,6 +36,8 @@ class UserDetailView(DetailView):
     template_name = 'catalog/contacts.html'
     context_object_name = 'user'
     pk_url_kwarg = 'pk'
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
     def get_object(self, queryset=None):
         # Возвращаем первого пользователя
@@ -48,15 +51,19 @@ class ProductsDetailView(DetailView):
     pk_url_kwarg = 'pk'
 
 
-class CategoriiListView(ListView):
+class CategoriiListView(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'catalog/categorii.html'
     context_object_name = 'сategory'
+    #специально оставленый для учебы редирект при отсудствии авторизации
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
 
-class ProductsCreateView(CreateView):
+class ProductsCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    permission_required = "catalog.add_product"
     template_name = 'catalog/create_product.html'
 
     success_url = reverse_lazy('catalog:index')  # редирект
@@ -86,28 +93,47 @@ class ProductsCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
+    permission_required = "catalog.add_category"
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
     template_name = 'catalog/create_categor.html'
 
     success_url = reverse_lazy('catalog:categorii')  # редирект
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user if self.request.user.is_authenticated else None
         return super().form_valid(form)
 
 
-class ProductsDeleteView(DeleteView):
+class ProductsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
+    permission_required = "catalog.delete_product"
     template_name = 'catalog/delete_form.html'
     success_url = reverse_lazy('catalog:index')
+    def dispatch(self, request, *args, **kwargs):
+        """проверка что редактирование доступно владельцу или модератору или root"""
+        self.object = self.get_object()
+        if self.object.user != self.request.user and not self.request.user.is_staff and not self.request.user.is_superuser:
+            raise Http404("Вы не являетесь владельцем этого продукта.")
 
 
-class ProductsUpdateView(UpdateView):
+class ProductsUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = "catalog.change_product"
     template_name = 'catalog/update_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        """проверка что редактирование доступно владельцу или модератору или root"""
+        self.object = self.get_object()
+        if self.object.user != self.request.user and not self.request.user.is_staff and not self.request.user.is_superuser:
+            raise Http404("Вы не являетесь владельцем этого продукта.")
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self) -> str:
         new_url = slugify(self.object.pk)

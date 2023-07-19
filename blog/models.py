@@ -1,6 +1,7 @@
 from audioop import reverse
 
 from PIL import Image
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {'null': True, 'blank': True}
@@ -15,6 +16,8 @@ class BlogPost(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
     is_published = models.BooleanField(default=True, verbose_name='статус публикации')
     views_count = models.IntegerField(default=0, verbose_name='счетчик просмотров')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='пользователь',
+                             blank=True, null=True)
 
     def __str__(self):
         return self.title

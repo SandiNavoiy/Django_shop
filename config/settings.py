@@ -149,3 +149,4 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 AUTH_USER_MODEL = "users.User"    #Эта борода для работы модуля users
 LOGIN_REDIRECT_URL ='/' # редирект для автоаризации
 LOGOUT_REDIRECT_URL ='/' # редирект для выхода из автоаризации
+# LOGIN_URL = '/'

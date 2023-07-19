@@ -10,36 +10,37 @@
 
             <div class="row">
                 {% for product in products %}
-                    <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col img">
-                                    {% if product.picture_product %}
-                                    <img src="{{ product.picture_product.url }}" class="img-fluid rounded-start"
-                                         alt="...">
-                                    {% else %}
-                                    <p> нет фото</p>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ product.product_name }}</h5>
-                                        <p class="card-text">{{ product.description_product | slice:100 }} </p>
-                                        {% if product.active_version %}
-                                            <p class="card-text">Активная
-                                                версия: {{ product.active_version.name_of_version }}</p>
+                    {% if product.is_published %}
+                        <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="card mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <div class="col img">
+                                        {% if product.picture_product %}
+                                            <img src="{{ product.picture_product.url }}" class="img-fluid rounded-start" alt="...">
                                         {% else %}
-                                            <p class="card-text">Нет активной версии</p>
+                                            <p> нет фото</p>
                                         {% endif %}
                                     </div>
-                                    <div class="button">
-                                        <a class="detail" type="submit" href="/products/{{ product.pk }}/"><p>
-                                            Подробнее...</p></a>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ product.product_name }}</h5>
+                                            <p class="card-text">{{ product.description_product | slice:100 }} </p>
+                                            {% if product.active_version %}
+                                                <p class="card-text">Активная версия: {{ product.active_version.name_of_version }}</p>
+                                            {% else %}
+                                                <p class="card-text">Нет активной версии</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="button">
+                                            <a class="detail" type="submit" href="/products/{{ product.pk }}/">
+                                                <p>Подробнее...</p>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
 

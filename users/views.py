@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -69,7 +70,7 @@ class ActivationFailed(TemplateView):
     template_name = 'users/email_verification_failed.html'
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserUpdate
     template_name = "users/update_user.html"
@@ -79,7 +80,7 @@ class UserUpdateView(UpdateView):
         return self.request.user
 
 def gen_pass(request):
-    """Генерация пароля"""
+    """Генерация пароля https://proghunter.ru/articles/django-base-2023-password-recovery-form"""
     new_password = str(random.randint(1000, 9999))
     request.user.set_password(new_password)
     request.user.save()

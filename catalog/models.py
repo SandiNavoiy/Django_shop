@@ -32,6 +32,7 @@ class Product(models.Model):
     last_modified_date_product = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='пользователь',
                              blank=True, null=True)
+    is_published = models.BooleanField(default=False, verbose_name='статус публикации')
 
 
     def __str__(self):
