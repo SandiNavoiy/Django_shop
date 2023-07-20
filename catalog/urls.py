@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from catalog.apps import CatalogConfig
 from catalog.views import CategoriiListView, ProductsDetailView, ProductsCreateView, UserDetailView, \
@@ -9,9 +10,9 @@ from catalog.views import CategoriiListView, ProductsDetailView, ProductsCreateV
 app_name = CatalogConfig.name
 urlpatterns = [
                   path('', IndexListView.as_view(), name='index'),  # вывод главной страницы
-                  path('contacts/', UserDetailView.as_view(), name='contact'),
-                  path('categorii', CategoriiListView.as_view(), name='categorii'),
-                  path('products/<int:pk>/', ProductsDetailView.as_view(), name='product'),
+                  path('contacts/', cache_page(60)(UserDetailView.as_view()), name='contact'),
+                  path('categorii', cache_page(60)(CategoriiListView.as_view()), name='categorii'),
+                  path('products/<int:pk>/', cache_page(60)(ProductsDetailView.as_view()), name='product'),
                   path('create', ProductsCreateView.as_view(), name='create_product'),
                   path('create_cat', CategoryCreateView.as_view(), name='create_cat'),
                   path('delete_product/<int:pk>/', ProductsDeleteView.as_view(), name='delete_product'),

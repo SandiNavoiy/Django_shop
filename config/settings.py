@@ -152,9 +152,12 @@ LOGOUT_REDIRECT_URL ='/' # редирект для выхода из автоа�
 # LOGIN_URL = '/'
 
 #подключение кэширования
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+CACHE_ENABLED=True
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+            "TIMEOUT": 300 # Ручная регулировка времени жизни кеша в секундах, по умолчанию 300
+        }
     }
-}
