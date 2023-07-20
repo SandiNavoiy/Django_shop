@@ -51,7 +51,7 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
-@never_cache
+
 def activate_account(request, uidb64):
     """активация"""
     try:
@@ -82,7 +82,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-@never_cache
+
 def gen_pass(request):
     """Генерация пароля https://proghunter.ru/articles/django-base-2023-password-recovery-form"""
     new_password = str(random.randint(1000, 9999))
