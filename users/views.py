@@ -12,6 +12,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.views.decorators.cache import never_cache
 from django.views.generic import CreateView, UpdateView, TemplateView
 from django.utils.encoding import force_str
 
@@ -50,6 +51,7 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
+@never_cache
 def activate_account(request, uidb64):
     """активация"""
     try:
@@ -79,6 +81,8 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+
+@never_cache
 def gen_pass(request):
     """Генерация пароля https://proghunter.ru/articles/django-base-2023-password-recovery-form"""
     new_password = str(random.randint(1000, 9999))
@@ -119,5 +123,3 @@ class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView
         context = super().get_context_data(**kwargs)
         context['title'] = 'Установить новый пароль'
         return context
-
-

@@ -62,7 +62,7 @@
                         {% endif %}
                     </li>
                     <li>
-                        {% if user.is_authenticated %}
+                        {% if perms.catalog.add_category %}
                             <a href="/create_cat" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="/create_cat"></use>
