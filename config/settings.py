@@ -150,3 +150,11 @@ AUTH_USER_MODEL = "users.User"    #Эта борода для работы мо�
 LOGIN_REDIRECT_URL ='/' # редирект для автоаризации
 LOGOUT_REDIRECT_URL ='/' # редирект для выхода из автоаризации
 # LOGIN_URL = '/'
+
+#подключение кэширования
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
