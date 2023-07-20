@@ -1,5 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
+from django.views.decorators.cache import never_cache
+
 from users.apps import UsersConfig
 from users.views import RegisterView, UserUpdateView, ActivationFailed, \
     ActivationOk, activate_account, gen_pass, UserForgotPasswordView, UserPasswordResetConfirmView
